@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, InputGroup, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt, faTrain, faSearch } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import '../../css/bookingPage/booking-form.css';
 
@@ -13,11 +15,10 @@ const BookingForm = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
+        // Dummy data (replace with actual API call below)
         const dummyLocations = ['Anuradhapura', 'Colombo', 'Moratuwa', 'Jaffna', 'Panadura'];
-        // const response = await axios.get('https://api.example.com/locations');
-        // const data = response.data.locations; 
-
-        setLocations(dummyLocations); // Replace this with `setLocations(data)` for actual API data
+        // const response = await axios.get('https://your-api.com/locations');
+        setLocations(dummyLocations);
       } catch (error) {
         console.error('Error fetching locations:', error);
       }
@@ -36,11 +37,9 @@ const BookingForm = () => {
     };
 
     try {
-      // POST the booking data to a specified API endpoint
       const response = await axios.post('https://your-api.com/bookings', bookingData);
-      
+
       if (response.status === 200) {
-        // Handle successful response (e.g., show success message)
         alert('Booking successful!');
       }
     } catch (error) {
@@ -50,46 +49,86 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="booking-form-container p-4 shadow-lg rounded">
+    <div className="booking-form-container p-4 shadow-lg rounded mt-5">
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formDate" className="mb-3">
-          <Form.Label><i className="fas fa-calendar-alt"></i> Date</Form.Label>
-          <Form.Control
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            placeholder="Pick Date"
-            required
-          />
-        </Form.Group>
+        <Row className="align-items-center">
+          {/* Date Field */}
+          <Col xs={12} md={4}>
+            <Form.Group controlId="formDate" className="mb-3 d-flex align-items-center">
+              <FontAwesomeIcon icon={faCalendarAlt} size="2x" className="me-3" />
+              <Form.Label className="mb-0">Date</Form.Label>
+            </Form.Group>
+          </Col>
+          <Col xs={12} md={8}>
+            <InputGroup className="mb-3">
+              <Form.Control
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                placeholder="Pick Date"
+                required
+                className="rounded-pill dark-input"
+              />
+            </InputGroup>
+          </Col>
 
-        <Form.Group controlId="formArrival" className="mb-3">
-          <Form.Label><i className="fas fa-map-marker-alt"></i> Arrival</Form.Label>
-          <Form.Select value={arrival} onChange={(e) => setArrival(e.target.value)} required>
-            <option value="">Select Arrival</option>
-            {locations.map((location, index) => (
-              <option key={index} value={location}>
-                {location}
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
+          {/* Arrival Field */}
+          <Col xs={12} md={4}>
+            <Form.Group controlId="formArrival" className="mb-3 d-flex align-items-center">
+              <FontAwesomeIcon icon={faTrain} size="2x" className="me-3" />
+              <Form.Label className="mb-0">Arrival</Form.Label>
+            </Form.Group>
+          </Col>
+          <Col xs={12} md={8}>
+            <InputGroup className="mb-3">
+              <Form.Select
+                value={arrival}
+                onChange={(e) => setArrival(e.target.value)}
+                required
+                className="rounded-pill dark-input"
+              >
+                <option value="">Pick Arrival</option>
+                {locations.map((location, index) => (
+                  <option key={index} value={location}>
+                    {location}
+                  </option>
+                ))}
+              </Form.Select>
+            </InputGroup>
+          </Col>
 
-        <Form.Group controlId="formDeparture" className="mb-3">
-          <Form.Label><i className="fas fa-map-marker-alt"></i> Departure</Form.Label>
-          <Form.Select value={departure} onChange={(e) => setDeparture(e.target.value)} required>
-            <option value="">Select Departure</option>
-            {locations.map((location, index) => (
-              <option key={index} value={location}>
-                {location}
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
+          {/* Departure Field */}
+          <Col xs={12} md={4}>
+            <Form.Group controlId="formDeparture" className="mb-3 d-flex align-items-center">
+              <FontAwesomeIcon icon={faTrain} size="2x" className="me-3" />
+              <Form.Label className="mb-0">Departure</Form.Label>
+            </Form.Group>
+          </Col>
+          <Col xs={12} md={8}>
+            <InputGroup className="mb-3">
+              <Form.Select
+                value={departure}
+                onChange={(e) => setDeparture(e.target.value)}
+                required
+                className="rounded-pill dark-input"
+              >
+                <option value="">Pick Departure</option>
+                {locations.map((location, index) => (
+                  <option key={index} value={location}>
+                    {location}
+                  </option>
+                ))}
+              </Form.Select>
+            </InputGroup>
+          </Col>
 
-        <Button className="btn btn-primary w-100" type="submit">
-          <i className="fas fa-search"></i> Search
-        </Button>
+          {/* Search Button */}
+          <Col xs={12} className="d-flex justify-content-center mt-auto">
+            <Button className="search-btn" type="submit">
+              <FontAwesomeIcon icon={faSearch} size="2x" />
+            </Button>
+          </Col>
+        </Row>
       </Form>
     </div>
   );
