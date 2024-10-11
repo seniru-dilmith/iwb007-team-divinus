@@ -1,0 +1,37 @@
+/* features.css */
+
+.features-section {
+    background-color: #f0f0f0;
+}
+
+.feature-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Ensure the card takes the full width of the column */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%; /* Ensure the card stretches to the full height */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.feature-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.feature-description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    flex-grow: 1; /* Ensure the description takes up remaining space */
+}
