@@ -3,7 +3,7 @@ import trainImage from '../../assets/home/back-image.jpg';
 import bookIcon from '../../assets/home/tickets.png';
 import validateIcon from '../../assets/home/valid.png'; 
 import galleryIcon from '../../assets/home/gallery.png';
-import '../../css/home.css';
+import '../../css/home/home.css';
 
 const HeroSection = () => {
   return (
@@ -16,9 +16,11 @@ const HeroSection = () => {
           <div className="col-md-4">
             <div className="card mb-4 shadow-sm custom-card">
               <img src={bookIcon} className="card-img-top icon-image" alt="Book Now" />
-              <div className="card-body">
-                <button className="btn btn-primary rounded-pill custom-button">Book Now</button>
-              </div>
+              <a href="/booking" className="stretched-link">
+                <div className="card-body">
+                  <button  className="btn btn-primary rounded-pill custom-button">Book Now</button>
+                </div>
+              </a>
             </div>
           </div>
           {/* Validate */}

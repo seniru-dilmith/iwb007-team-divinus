@@ -25,7 +25,7 @@
     border: none;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.85);
-    padding: 15px;
+    padding-top: 10%;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
@@ -41,6 +41,9 @@
 
 /* Icon image adjustments */
 .icon-image {
+    background-color: #fff;
+    padding: 10%;
+    border-radius: 10%;
     width: 60%;
     margin-bottom: 20px;
 }

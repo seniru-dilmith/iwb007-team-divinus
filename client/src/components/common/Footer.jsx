@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../css/footer.css';
+import '../../css/common/footer.css';
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="col-lg-6 col-md-6 col-sm-12 mb-4 useful-links">
             <h5>Useful Links</h5>
             <ul className="list-unstyled">
-              <li><a href="#booking" className="text-light">Book a Ticket</a></li>
+              <li><a href="/booking" className="text-light">Book a Ticket</a></li>
               <li><a href="#validate" className="text-light">Validate Tickets</a></li>
               <li><a href="#gallery" className="text-light">Gallery</a></li>
               <li><a href="#contact-us" className="text-light">Contact Us</a></li>

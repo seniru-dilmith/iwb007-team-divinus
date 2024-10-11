@@ -1,0 +1,23 @@
+.booking-form-container {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .booking-form-container input {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+  }
+  
+  .booking-form-container button {
+    background-color: #0056b3;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .booking-form-container button:hover {
+    background-color: #003d82;
+  }
+  

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../css/features.css';
+import '../../css/home/features.css';
 import { featuresData } from './data/featuresData';
 
 const Features = () => {

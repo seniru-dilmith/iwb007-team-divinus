@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/common/train-logo-low-res.png';
-import '../../css/navbar.css';
+import '../../css/common/navbar.css';
 
 const Navbar = () => {
   const [scrollDirection, setScrollDirection] = useState('up');
@@ -32,7 +32,7 @@ const Navbar = () => {
       } ${isMenuOpen ? 'menu-open' : ''}`}
     >
       <div className="container d-flex align-items-center justify-content-between">
-        <a className="navbar-brand d-flex align-items-center" href="#">
+        <a className="navbar-brand d-flex align-items-center" href="/">
           <img src={logo} alt="BookMyTrain" width="40" height="40" className="me-2" />
           <span className="brand-text">Book My Train</span>
         </a>
@@ -54,10 +54,10 @@ const Navbar = () => {
         <div className={`collapse navbar-collapse nav-wrapper ${isMenuOpen ? 'show' : ''}`} id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <a className="nav-link" href="#">Home</a>
+              <a className="nav-link" href="/">Home</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Booking</a>
+              <a className="nav-link" href="/booking">Booking</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Validate</a>
