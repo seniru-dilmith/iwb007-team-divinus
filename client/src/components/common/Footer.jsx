@@ -13,7 +13,7 @@ const Footer = () => {
             <h5>Useful Links</h5>
             <ul className="list-unstyled">
               <li><a href="/booking" className="text-light">Book a Ticket</a></li>
-              <li><a href="#validate" className="text-light">Validate Tickets</a></li>
+              <li><a href="/validate" className="text-light">Validate Tickets</a></li>
               <li><a href="#gallery" className="text-light">Gallery</a></li>
               <li><a href="#contact-us" className="text-light">Contact Us</a></li>
             </ul>

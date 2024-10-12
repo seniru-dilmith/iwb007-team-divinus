@@ -27,9 +27,11 @@ const HeroSection = () => {
           <div className="col-md-4">
             <div className="card mb-4 shadow-sm custom-card">
               <img src={validateIcon} className="card-img-top icon-image" alt="Validate" />
-              <div className="card-body">
-                <button className="btn btn-primary rounded-pill custom-button">Validate</button>
-              </div>
+              <a href="/validate" className="stretched-link">
+                <div href className="card-body">
+                  <button className="btn btn-primary rounded-pill custom-button">Validate</button>
+                </div>
+              </a>
             </div>
           </div>
           {/* Gallery */}

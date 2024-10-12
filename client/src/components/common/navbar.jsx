@@ -60,7 +60,7 @@ const Navbar = () => {
               <a className="nav-link" href="/booking">Booking</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Validate</a>
+              <a className="nav-link" href="/validate">Validate</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Gallery</a>
