@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import TrainCard from '../components/listOfTrains/TrainCard';
+import Navbar from '../components/common/navbar';
+import Footer from '../components/common/Footer';
 import '../css/listOfTrains/available-trains.css';
 
 const ListOfAvailableTrains = () => {
@@ -44,6 +46,7 @@ const ListOfAvailableTrains = () => {
 
   return (
     <Container fluid className="available-trains-container p-4">
+      <Navbar /> {/* The Navbar will be visible on all pages */}
       <Row className="justify-content-between align-items-center mb-4" style={{ marginTop: '100px' }}>
         <Col xs={6}>
           <div className="text-left">
@@ -76,6 +79,7 @@ const ListOfAvailableTrains = () => {
           </Col>
         )}
       </Row>
+      <Footer /> {/* The Footer will be visible on all pages */}
     </Container>
   );
 };

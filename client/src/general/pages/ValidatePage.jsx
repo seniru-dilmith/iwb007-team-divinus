@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import TicketValidationForm from '../components/validatePage/TicketValidationForm';
 import TicketValidationResult from '../components/validatePage/TicketValidationResult';
+import Navbar from '../components/common/navbar';
+import Footer from '../components/common/Footer';
 import '../css/validatePage/validate-page.css';
 
 const ValidatePage = () => {
@@ -45,6 +47,7 @@ const ValidatePage = () => {
 
   return (
     <Container fluid className="validate-page-container">
+      <Navbar /> {/* The Navbar will be visible on all pages */}
       <Row className="align-items-center">
         <Col md={6} className="ticket-form-col"> {/* Adjusting to take the left half of the screen */}
           <div className="ticket-form-content">
@@ -62,6 +65,7 @@ const ValidatePage = () => {
           </div>
         </Col>
       </Row>
+      <Footer /> {/* The Footer will be visible on all pages */}
     </Container>
   );
 };

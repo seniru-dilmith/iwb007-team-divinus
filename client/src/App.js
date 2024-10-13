@@ -10,11 +10,11 @@ import PaymentPage from './general/pages/PaymentPage';
 import GalleryPage from './general/pages/GalleryPage';
 import ContactUs from './general/pages/ContactUs';
 import NotFound from './general/pages/NotFoundPage';
+import LoginPage from './admin/pages/login/LoginPage';
 
 function App() {
   return (
     <Router>
-      <Navbar /> {/* The Navbar will be visible on all pages */}
       <Routes>
         <Route path="/" element={<Home />} /> {/* Home page route */}
         <Route path="/booking" element={<BookingPage />} /> {/* Booking page route */}
@@ -23,9 +23,15 @@ function App() {
         <Route path="/payment" element={<PaymentPage />} /> {/* Payment page route */}
         <Route path="/gallery" element={<GalleryPage />} /> {/* Gallery page route */} 
         <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<LoginPage />} /> {/* Admin Dashboard Route */}
+        <Route path="/admin/schedule*" element={<h1> Schedule </h1>} /> {/* Schedule a new train */}
+        <Route path="/admin/add-train" element={<h1> Add Train </h1>} /> {/* Add a new train */}
+
+        {/* Not found page */}
         <Route path="*" element={<NotFound />} /> {/* 404 Route */}
       </Routes>
-      <Footer /> {/* The Footer will be visible on all pages */}
     </Router>
   );
 }
