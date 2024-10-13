@@ -7,6 +7,8 @@ import ListOfAvailableTrains from './pages/ListOfAvailableTrains';
 import Navbar from './components/common/navbar';
 import Footer from './components/common/Footer';
 import PaymentPage from './pages/PaymentPage';
+import GalleryPage from './pages/GalleryPage';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/validate" element={<ValidatePage />} /> {/* Ticket Validation Route */}
         <Route path="/trains" element={<ListOfAvailableTrains />} /> {/* Available Trains Route */}
         <Route path="/payment" element={<PaymentPage />} /> {/* Payment page route */}
+        <Route path="/gallery" element={<GalleryPage />} /> {/* Gallery page route */} 
+        <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
         <Route path="*" element={<h1>Not Found</h1>} /> {/* 404 Route */}
       </Routes>
       <Footer /> {/* The Footer will be visible on all pages */}

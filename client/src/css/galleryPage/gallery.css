@@ -1,0 +1,26 @@
+/* gallery.css */
+.gallery-page {
+    padding-top: 5%;
+    background-color: #f0f0f0;
+  }
+  
+  .gallery-title {
+    font-size: 3rem;
+    letter-spacing: 0.5rem;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 30px;
+  }
+  
+  .gallery-item {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .gallery-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .gallery-image {
+    height: 200px;
+    object-fit: cover;
+  }
+  

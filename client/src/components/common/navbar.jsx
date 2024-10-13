@@ -63,10 +63,10 @@ const Navbar = () => {
               <a className="nav-link" href="/validate">Validate</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Gallery</a>
+              <a className="nav-link" href="/gallery">Gallery</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Contact Us</a>
+              <a className="nav-link" href="/contact">Contact Us</a>
             </li>
           </ul>
         </div>

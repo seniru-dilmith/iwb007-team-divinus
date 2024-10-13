@@ -14,8 +14,8 @@ const Footer = () => {
             <ul className="list-unstyled">
               <li><a href="/booking" className="text-light">Book a Ticket</a></li>
               <li><a href="/validate" className="text-light">Validate Tickets</a></li>
-              <li><a href="#gallery" className="text-light">Gallery</a></li>
-              <li><a href="#contact-us" className="text-light">Contact Us</a></li>
+              <li><a href="/gallery" className="text-light">Gallery</a></li>
+              <li><a href="/contact" className="text-light">Contact Us</a></li>
             </ul>
           </div>
 
@@ -26,7 +26,7 @@ const Footer = () => {
               <i className="fas fa-envelope"></i> support@bookmytrain.com
             </p>
             <p>
-              <i className="fas fa-phone-alt"></i> +94 71 462 56 71
+              <i className="fas fa-phone-alt"></i> +94 763 881 265
             </p>
             <div className="social-icons">
               <a href="#!" className="text-light me-2"><i className="fab fa-facebook-f"></i></a>

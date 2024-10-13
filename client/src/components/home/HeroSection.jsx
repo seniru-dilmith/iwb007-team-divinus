@@ -39,9 +39,11 @@ const HeroSection = () => {
           <div className="col-md-4">
             <div className="card mb-4 shadow-sm custom-card">
               <img src={galleryIcon} className="card-img-top icon-image" alt="Gallery" />
-              <div className="card-body">
-                <button className="btn btn-primary rounded-pill custom-button">Gallery</button>
-              </div>
+              <a href="/gallery" className="stretched-link">
+                <div className="card-body">
+                  <button className="btn btn-primary rounded-pill custom-button">Gallery</button>
+                </div>
+              </a>
             </div>
           </div>
         </div>
