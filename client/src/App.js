@@ -1,14 +1,15 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/home';
-import BookingPage from './pages/BookingPage';
-import ValidatePage from './pages/ValidatePage';
-import ListOfAvailableTrains from './pages/ListOfAvailableTrains';
-import Navbar from './components/common/navbar';
-import Footer from './components/common/Footer';
-import PaymentPage from './pages/PaymentPage';
-import GalleryPage from './pages/GalleryPage';
-import ContactUs from './pages/ContactUs';
+import Home from './general/pages/home';
+import BookingPage from './general/pages/BookingPage';
+import ValidatePage from './general/pages/ValidatePage';
+import ListOfAvailableTrains from './general/pages/ListOfAvailableTrains';
+import Navbar from './general/components/common/navbar';
+import Footer from './general/components/common/Footer';
+import PaymentPage from './general/pages/PaymentPage';
+import GalleryPage from './general/pages/GalleryPage';
+import ContactUs from './general/pages/ContactUs';
+import NotFound from './general/pages/NotFoundPage';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path="/payment" element={<PaymentPage />} /> {/* Payment page route */}
         <Route path="/gallery" element={<GalleryPage />} /> {/* Gallery page route */} 
         <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
-        <Route path="*" element={<h1>Not Found</h1>} /> {/* 404 Route */}
+        <Route path="*" element={<NotFound />} /> {/* 404 Route */}
       </Routes>
       <Footer /> {/* The Footer will be visible on all pages */}
     </Router>
