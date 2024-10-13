@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, InputGroup, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faTrain, faSearch } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../../css/bookingPage/booking-form.css';
 
 const BookingForm = () => {
@@ -10,12 +10,14 @@ const BookingForm = () => {
   const [arrival, setArrival] = useState('');
   const [departure, setDeparture] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // Fetch dummy data from an API (useEffect runs when the component mounts)
+  // Fetch dummy locations data (useEffect runs when the component mounts)
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        // Dummy data (replace with actual API call below)
+        // Dummy locations data
         const dummyLocations = ['Anuradhapura', 'Colombo', 'Moratuwa', 'Jaffna', 'Panadura'];
         // const response = await axios.get('https://your-api.com/locations');
         setLocations(dummyLocations);
@@ -28,7 +30,8 @@ const BookingForm = () => {
   }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page reload on form submit
+    e.preventDefault();
+    setLoading(true); // Start loading
 
     const bookingData = {
       date: selectedDate,
@@ -36,16 +39,26 @@ const BookingForm = () => {
       departure,
     };
 
-    try {
-      const response = await axios.post('https://your-api.com/bookings', bookingData);
-
-      if (response.status === 200) {
-        alert('Booking successful!');
-      }
-    } catch (error) {
-      console.error('Error submitting booking:', error);
-      alert('Failed to submit booking');
-    }
+    // Simulating an API response with dummy data
+    setTimeout(() => {
+      const dummyTrains = [
+        {
+          id: 1,
+          name: "Udarata Manike",
+          arrivesAt: "10:10 p.m.",
+          departsAt: "11:10 p.m.",
+        },
+        {
+          id: 2,
+          name: "Podi Menike",
+          arrivesAt: "9:00 a.m.",
+          departsAt: "10:00 a.m.",
+        },
+      ];
+      console.log('Dummy booking successful:', dummyTrains);
+      navigate('/trains', { state: { trains: dummyTrains, bookingData } });
+      setLoading(false); // Stop loading
+    }, 1500); // Simulating a delay of 1.5 seconds
   };
 
   return (
@@ -124,8 +137,8 @@ const BookingForm = () => {
 
           {/* Search Button */}
           <Col xs={12} className="d-flex justify-content-center mt-auto">
-            <Button className="search-btn" type="submit">
-              <FontAwesomeIcon icon={faSearch} size="2x" />
+            <Button className="search-btn" type="submit" disabled={loading}>
+              {loading ? 'Loading...' : <FontAwesomeIcon icon={faSearch} size="2x" />}
             </Button>
           </Col>
         </Row>

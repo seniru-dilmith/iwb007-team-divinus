@@ -33,7 +33,7 @@ const Navbar = () => {
     >
       <div className="container d-flex align-items-center justify-content-between">
         <a className="navbar-brand d-flex align-items-center" href="/">
-          <img src={logo} alt="BookMyTrain" width="40" height="40" className="me-2" />
+          <img src={logo} alt="BookMyTrain" width="40" height="40" className="navbar-logo me-2" />
           <span className="brand-text">Book My Train</span>
         </a>
 

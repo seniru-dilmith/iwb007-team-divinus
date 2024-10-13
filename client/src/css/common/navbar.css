@@ -1,3 +1,28 @@
+.navbar-brand img {
+    max-height: 40px; 
+    height: auto;
+    width: auto;  
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    color: #333;
+    margin-left: 10px; 
+}
+
+.navbar-toggler-icon {
+    background-image: url('../../assets/common/train-logo-low-res.png'); 
+    width: 30px;
+    height: 30px;
+}
+
 .custom-navbar {
     position: fixed;
     top: 0;

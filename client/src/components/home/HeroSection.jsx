@@ -16,6 +16,7 @@ const HeroSection = () => {
           <div className="col-md-4">
             <div className="card mb-4 shadow-sm custom-card">
               <img src={bookIcon} className="card-img-top icon-image" alt="Book Now" />
+              {console.log(bookIcon, validateIcon, galleryIcon)}
               <a href="/booking" className="stretched-link">
                 <div className="card-body">
                   <button  className="btn btn-primary rounded-pill custom-button">Book Now</button>
