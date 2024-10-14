@@ -46,27 +46,29 @@ const ValidatePage = () => {
   };
 
   return (
-    <Container fluid className="validate-page-container">
+    <div>
       <Navbar /> {/* The Navbar will be visible on all pages */}
-      <Row className="align-items-center">
-        <Col md={6} className="ticket-form-col"> {/* Adjusting to take the left half of the screen */}
-          <div className="ticket-form-content">
-            <h1 className="validate-title mb-4 text-center">VALIDATE YOUR TICKET</h1>
-            <TicketValidationForm
-              ticketNumber={ticketNumber}
-              setTicketNumber={setTicketNumber}
-              handleValidation={handleValidation}
-            />
-            {isValidTicket !== null && (
-              <div className="mt-5">
-                <TicketValidationResult isValidTicket={isValidTicket} />
-              </div>
-            )}
-          </div>
-        </Col>
-      </Row>
+      <Container fluid className="validate-page-container">
+        <Row className="align-items-center">
+          <Col md={6} className="ticket-form-col"> {/* Adjusting to take the left half of the screen */}
+            <div className="ticket-form-content">
+              <h1 className="validate-title mb-4 text-center">VALIDATE YOUR TICKET</h1>
+              <TicketValidationForm
+                ticketNumber={ticketNumber}
+                setTicketNumber={setTicketNumber}
+                handleValidation={handleValidation}
+              />
+              {isValidTicket !== null && (
+                <div className="mt-5">
+                  <TicketValidationResult isValidTicket={isValidTicket} />
+                </div>
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Container>
       <Footer /> {/* The Footer will be visible on all pages */}
-    </Container>
+    </div>
   );
 };
 

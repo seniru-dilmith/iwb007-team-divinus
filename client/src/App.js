@@ -4,13 +4,12 @@ import Home from './general/pages/home';
 import BookingPage from './general/pages/BookingPage';
 import ValidatePage from './general/pages/ValidatePage';
 import ListOfAvailableTrains from './general/pages/ListOfAvailableTrains';
-import Navbar from './general/components/common/navbar';
-import Footer from './general/components/common/Footer';
 import PaymentPage from './general/pages/PaymentPage';
 import GalleryPage from './general/pages/GalleryPage';
 import ContactUs from './general/pages/ContactUs';
 import NotFound from './general/pages/NotFoundPage';
 import LoginPage from './admin/pages/login/LoginPage';
+import AddTrain from './admin/pages/addTrain/AddTrain';
 
 function App() {
   return (
@@ -27,7 +26,7 @@ function App() {
         {/* Admin Routes */}
         <Route path="/admin" element={<LoginPage />} /> {/* Admin Dashboard Route */}
         <Route path="/admin/schedule*" element={<h1> Schedule </h1>} /> {/* Schedule a new train */}
-        <Route path="/admin/add-train" element={<h1> Add Train </h1>} /> {/* Add a new train */}
+        <Route path="/admin/add-train" element={<AddTrain />} /> {/* Add a new train */}
 
         {/* Not found page */}
         <Route path="*" element={<NotFound />} /> {/* 404 Route */}

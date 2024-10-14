@@ -1,31 +1,30 @@
 .train-details-table {
-    margin: 20px 0;
-    font-size: 18px;
-  }
-  
-  .train-details-table td {
-    padding: 10px 20px;
-  }
-  
-  .train-link {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .train-link:hover {
-    text-decoration: underline;
-  }
-  
-  .text-primary {
-    color: #0056b3;
-  }
-  
-  .text-success {
-    color: #28a745;
-  }
-  
-  .table td {
-    vertical-align: middle;
-  }
-  
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.train-details-table td {
+  padding: 10px 20px;
+}
+
+.train-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.train-link:hover {
+  text-decoration: underline;
+}
+
+.text-primary {
+  color: #0056b3;
+}
+
+.text-success {
+  color: #28a745;
+}
+
+.table td {
+  vertical-align: middle;
+}
