@@ -3,8 +3,8 @@ import server.controller;
 import server.model;
 
 public http:Service trainService = service object {
-    resource function get schedule/[int trainId]() returns string {
-        return "train shedule(get details) get moethod";
+    resource function get schedule( http:Caller caller ) returns error? {
+        return controller:getTrainSchedules(caller);
     }
 
     resource function post schedule( http:Caller caller, @http:Payload model:Train train ) returns error? {
@@ -14,11 +14,11 @@ public http:Service trainService = service object {
 
     }
 
-    resource function put schedule/[int trainId]() returns string {
-        return "train schedule(update) post method";
+    resource function put schedule/[string trainId]( http:Caller caller, @http:Payload model:Train train ) returns error? {
+        return controller:updateTrainSchedule(caller, trainId, train);
     }
 
-    resource function delete schedule/[int trainId]() returns string {
-        return "train schedule(delete) delete method";
+    resource function delete schedule/[string trainId]( http:Caller caller ) returns error? {
+        return controller:deleteTrainSchedule(trainId);
     }
 };
