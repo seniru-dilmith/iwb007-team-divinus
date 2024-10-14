@@ -1,0 +1,18 @@
+.edit-train-modal .form-control {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.edit-train-modal .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+}
+
+.edit-train-modal .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+}

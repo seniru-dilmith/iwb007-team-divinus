@@ -1,0 +1,19 @@
+.hero-section {
+  height: 80vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-section .container {
+  max-width: 1200px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 100vh;
+  }
+}
+  

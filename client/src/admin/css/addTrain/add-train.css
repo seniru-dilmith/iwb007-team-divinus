@@ -1,0 +1,101 @@
+.add-train-page {
+    background: linear-gradient(to right,rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0.4)), url('../../assets/home/back-image.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  
+.form-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.train-form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+}
+
+.add-train-btn {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: none;
+}
+
+.add-train-btn:hover {
+    background-color: #0056b3;
+}
+
+.add-station-icon {
+    font-size: 1.8rem;
+    color: #007bff;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.add-station-icon:hover {
+    color: #0056b3;
+}
+
+/* Styling for the select dropdown */
+form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('../../assets/common/drop-down.png') no-repeat right 10px center;
+    background-size: 15px;
+    padding-right: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus state for select box */
+form select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Change background on hover */
+form select:hover {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+}
+
+footer {
+    width: 100vw;
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+@media (max-width: 992px) {
+    .train-form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .add-train-page {
+        padding: 10px 0;
+    }
+}
+  
