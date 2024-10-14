@@ -10,6 +10,7 @@ import ContactUs from './general/pages/ContactUs';
 import NotFound from './general/pages/NotFoundPage';
 import LoginPage from './admin/pages/login/LoginPage';
 import AddTrain from './admin/pages/addTrain/AddTrain';
+import Schedule from './admin/pages/schedule/Schedule';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin" element={<LoginPage />} /> {/* Admin Dashboard Route */}
-        <Route path="/admin/schedule*" element={<h1> Schedule </h1>} /> {/* Schedule a new train */}
+        <Route path="/admin/schedule*" element={<Schedule />} /> {/* Schedule a new train */}
         <Route path="/admin/add-train" element={<AddTrain />} /> {/* Add a new train */}
 
         {/* Not found page */}

@@ -5,10 +5,12 @@ import Footer from '../components/common/Footer';
 
 const BookingPage = () => {
   return (
-    <div className="booking-page">
+    <div>
       <Navbar /> {/* The Navbar will be visible on all pages */}
-      <HeroSection />
-      {/* other sections or features */}
+      <div className="booking-page">
+        <HeroSection style={{"overflow-x": "hidden"}}/>
+        {/* other sections or features */}
+      </div>
       <Footer /> {/* The Footer will be visible on all pages */}
     </div>
   );

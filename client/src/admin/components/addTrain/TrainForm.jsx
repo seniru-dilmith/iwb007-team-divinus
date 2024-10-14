@@ -131,7 +131,7 @@ const TrainForm = () => {
   return (
     <Form onSubmit={handleSubmit} className="train-form container">
       {/* Title of the form */}
-      <h2 className="text-center mb-4">Add New Train</h2>
+      <h1 className="text-center text-secondary">Add New Train</h1>
 
       {/* Train Name */}
       <Row className="mb-3">

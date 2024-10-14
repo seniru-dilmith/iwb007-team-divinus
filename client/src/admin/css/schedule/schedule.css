@@ -1,0 +1,246 @@
+/* General styling for the schedule page */
+.schedule-page {
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+}
+
+.container.content {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the "Schedule a New Train" button */
+.schedule-new-train {
+    background-color: #ffa500;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.schedule-new-train:hover {
+    background-color: #ff8c00;
+}
+
+/* Search bar styling */
+.search-schedule {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-schedule .date-info p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.search-schedule .date-info span {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+
+/* Train Card Styling */
+.train-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.train-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    min-width: 150px;
+}
+
+.train-details h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.train-details p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.icon-eye {
+    font-size: 2rem;
+    color: #000;
+}
+
+.train-seats {
+    display: flex;
+    gap: 10px;
+}
+
+.seat-class {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.class-number {
+    background-color: #f4b04f;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.seat-count {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #333;
+}
+
+.train-time {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.arrives-departs p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.arrives-departs span {
+    display: block;
+    font-size: 0.85rem;
+    color: #888;
+    text-align: center;
+}
+
+.clock-icon {
+    font-size: 2rem;
+    color: #007bff;
+}
+
+/* Action Button Styling */
+.train-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #f4b04f;
+    color: #fff;
+    border: none;
+}
+
+.btn-edit:hover {
+    background-color: #e99a3b;
+}
+
+.btn-delete {
+    background-color: #457bdb;
+    color: #fff;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: #376dbb;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .train-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .train-actions {
+        margin-top: 10px;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .schedule-new-train {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .search-schedule {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .train-time {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .icon-eye {
+        font-size: 1.5rem;
+    }
+
+    .train-details h5 {
+        font-size: 1rem;
+    }
+
+    .train-seats {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .seat-class {
+        flex-basis: 30%;
+    }
+
+    .class-number, .seat-count {
+        font-size: 0.9rem;
+        padding: 8px;
+        width: 100%;
+        height: auto;
+    }
+
+    .arrives-departs p {
+        font-size: 1rem;
+    }
+
+    .clock-icon {
+        font-size: 1.5rem;
+    }
+}

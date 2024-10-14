@@ -1,10 +1,5 @@
 .add-train-page {
-    background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.9) 40%,
-        rgba(255, 255, 255, 0.4)
-      ),
-      url('../../assets/home/back-image.jpg');
+    background: linear-gradient(to right,rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0.4)), url('../../assets/home/back-image.jpg');
     background-size: cover;
     background-position: center;
     min-height: 100vh;
@@ -13,6 +8,7 @@
     justify-content: space-between;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
   }
   
 .form-wrapper {

@@ -9,12 +9,12 @@ const Home = () => {
     return ( 
         <div>
             <Navbar />
-            <div className='home-container'>
+            <div>
                 <HeroSection />
                 <Description />
                 <Features />
             </div>
-            <Footer /> {/* The Footer will be visible on all pages */}
+            <Footer /> 
         </div>
      );
 }

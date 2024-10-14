@@ -6,6 +6,7 @@ background-position: center;
 background-repeat: no-repeat;
 min-height: 100vh;
 padding: 50px 0;
+overflow-x: hidden;
 }
 
 /* Ensures the container content stays above the background */

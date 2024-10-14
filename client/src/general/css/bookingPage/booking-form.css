@@ -3,7 +3,7 @@
   border-radius: 15px;
   max-width: 600px;
   margin: 0 auto;
-  margin-top: 80px; /* Adjust this value to move the form lower */
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,7 +12,7 @@
 /* Dark input styling */
 .dark-input {
   background-color: #b0b0b0;
-  color: #fff; /* White text for readability */
+  color: #fff; 
   border: none;
   border-radius: 50px;
   padding: 10px 20px;
@@ -20,7 +20,7 @@
 }
 
 .dark-input::placeholder {
-  color: #bbb; /* Light gray for placeholder text */
+  color: #bbb;
 }
 
 /* Search button styling */
