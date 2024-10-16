@@ -7,7 +7,7 @@ import useAuth from '../../../hooks/useAuth';
 const AdminLoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {setAccessToken} = useAuth();
+  const {setAccessToken, setIsAuthenticated} = useAuth();
 
 
 
@@ -17,6 +17,7 @@ const AdminLoginForm = () => {
     axiosWithCredential.post('/admin/login', { email, password })
       .then((res) => {
         setAccessToken(res.data.access_token);
+        setIsAuthenticated(true);
       })
       .catch((err) => {
         console.log(err);
