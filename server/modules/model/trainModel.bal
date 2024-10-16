@@ -48,6 +48,15 @@ public function insertTrain(Train train) returns error? {
     return ();
 }
 
+public function getTrainById(string id) returns Train|error? {
+    mongodb:Database db = check database:getDatabase();
+    mongodb:Collection trainCollection = check db->getCollection("trains");
+
+    Train? train = check trainCollection->findOne({"_id": {"$oid": id}});
+
+    return train;
+}
+
 public function getAllTrains() returns Train[]|error {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection trainCollection = check db->getCollection("trains");
