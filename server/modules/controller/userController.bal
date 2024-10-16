@@ -3,9 +3,10 @@ import server.model;
 import ballerina/crypto;
 import ballerina/jwt;
 
-string secret = "jwt-secret-string";
+configurable string access_token_secret = ? ;
+configurable string refresh_token_secret = ?;
 
-function generateJWT(map<json> payload) returns string|error {
+function generateJWT(map<json> payload, string secret) returns string|error {
     
     jwt:IssuerConfig issuerConfig = {
         issuer: "bookMyTrain",
@@ -22,7 +23,7 @@ function generateJWT(map<json> payload) returns string|error {
     return token;
 }
 
-function validateJWT(string token) returns jwt:Payload|error {
+function validateJWT(string token, string secret) returns jwt:Payload|error {
     
     jwt:ValidatorConfig validatorConfig = {
         issuer: "bookMyTrain",
@@ -64,12 +65,13 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
         return ();
     }
 
-    string token = check generateJWT({"email": dbUser.email});
-    http:Cookie tokenCookie = new("token", token, httpOnly = true, secure = true, maxAge = 3600);
+    string access_token = check generateJWT({"email": dbUser.email}, access_token_secret);
+    string refresh_token = check generateJWT({"email": dbUser.email}, access_token_secret);
+    http:Cookie tokenCookie = new("token", refresh_token, httpOnly = true, secure = true, maxAge = 3600);
 
     res.statusCode = 200;
     res.addCookie(tokenCookie);
-    res.setJsonPayload({"message": "Login successful"});
+    res.setJsonPayload({"message": "Login successful", "access_token" : access_token });
 
     check caller->respond(res);
 
