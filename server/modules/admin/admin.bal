@@ -23,4 +23,10 @@ public http:Service adminService = service object {
         return err;
     }
 
+    resource function post refreshToken( http:Caller caller, http:Request req) returns error? {
+        error? err = controller:refreshToken(caller, req);
+
+        return err;
+    }
+
 };
