@@ -2,6 +2,7 @@ import ballerina/http;
 import server.controller;
 import server.model;
 
+
 public http:Service trainService = service object {
     resource function get schedule( http:Caller caller ) returns error? {
         return controller:getTrainSchedules(caller);
@@ -19,6 +20,18 @@ public http:Service trainService = service object {
     }
 
     resource function delete schedule/[string trainId]( http:Caller caller ) returns error? {
-        return controller:deleteTrainSchedule(trainId);
+        return controller:deleteTrainSchedule(caller, trainId);
+    }
+
+    resource function get stations( http:Caller caller ) returns error? {
+        return controller:getStations(caller);
+    }
+
+    resource function post stations( http:Caller caller, @http:Payload model:Station stations) returns error? {
+        return controller:addStations(caller, stations);
+    }
+
+    resource function post search( http:Caller caller, @http:Payload model:TrainFilter filter ) returns error? {
+        return controller:filterTrains(caller, filter);
     }
 };
