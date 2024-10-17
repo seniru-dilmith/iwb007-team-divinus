@@ -197,5 +197,18 @@ public function filterTrains(TrainFilter filter) returns Train[]|error {
 }
 
 
+public function deleteStation(string station) returns error? {
+    mongodb:Database db = check database:getDatabase();
+    mongodb:Collection stationCollection = check db->getCollection("stations");
+
+    mongodb:DeleteResult result = check stationCollection->deleteOne({"station": station});
+
+    if(result.deletedCount == 0){
+        return error("Station not found");
+    }
+
+    return ();
+}
+
 
 

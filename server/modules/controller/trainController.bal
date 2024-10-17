@@ -96,3 +96,20 @@ public function addStations(http:Caller caller, model:Station stations) returns 
 
     return ();
 }
+
+public function deleteStation(http:Caller caller, string station) returns error? {
+    error? err = model:deleteStation(station);
+
+    http:Response res = new;
+    if(err is error && err.message() == "Station not found"){
+        res.statusCode = 404;
+        res.setJsonPayload({"message": "Station not found"});
+    }else {
+        res.statusCode = 200;
+        res.setJsonPayload({"message": "Station deleted successfully"});
+    }
+
+    check caller->respond(res);
+    return err;
+}
+

@@ -8,7 +8,7 @@ import EditTrainModal from '../../components/schedule/EditTrainModal';
 import '../../css/schedule/schedule.css';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-// import axios from 'axios';
+import useAxios from '../../../hooks/useAxios';
 
 const Schedule = () => {
   const [stations, setStations] = useState([]);
@@ -17,6 +17,8 @@ const Schedule = () => {
   const [trains, setTrains] = useState([]);
   const [editingTrain, setEditingTrain] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  const axios = useAxios();
 
   useEffect(() => {
     const fetchTrains = async () => {
@@ -95,28 +97,29 @@ const Schedule = () => {
         alert('This station already exists!');
         return;
       }
-    
-      setStations((prevStations) => [...prevStations, ...newStations]);
-      // axios call to add station to the database
-      // await axios.post('http://localhost:5000/add-stations', { name: newStations });
-      setNewStation(''); // clear the input field
 
+      if(!axios) return;
+
+      axios.post('/train/stations', { station: newStations })
+        .then((response) => {
+          console.log(response);
+          setStations((prevStations) => [...prevStations, ...newStations]);
+          setNewStation('');
+        })
     } else alert('Please enter a station name!');
 
   };
-
-  // fetch stations from the database
-  const fetchStations = async () => {
-    // Dummy data (replace with API call when ready)
-    const dummyStations = ['Colombo Fort', 'Kandy', 'Badulla', 'Anuradhapura', 'Jaffna'];
-    setStations(dummyStations);
-    //axios call to fetch stations from the database
-    // const response = await axios.get('http://localhost:5000/stations');
-    // setStations(response.data);
-  };
-
+  
   useEffect(() => {
-    fetchStations();
+    if(!axios) return;
+
+    axios.get('/train/stations')
+      .then((response) => {
+        setStations(response.data.stations);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
 
@@ -129,11 +132,19 @@ const Schedule = () => {
 
     const confirmDelete = window.confirm(`Are you sure you want to remove "${stationToRemove}"?`);
     if (confirmDelete) {
-      setStations((prevStations) =>
-        prevStations.filter((station) => station !== stationToRemove)
-      );
-      // await axios.delete(`http://localhost:5000/remove-station/${stationToRemove}`);
-      setStationToRemove('');
+      if(!axios) return;
+
+      axios.delete(`/train/stations/${stationToRemove}`)
+        .then((response) => {
+          console.log(response);
+          setStations((prevStations) =>
+            prevStations.filter((station) => station !== stationToRemove)
+          );
+          setStationToRemove('');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 

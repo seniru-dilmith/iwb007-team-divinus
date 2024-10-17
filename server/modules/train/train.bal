@@ -36,6 +36,10 @@ public http:Service trainService = @http:ServiceConfig{
         return controller:addStations(caller, stations);
     }
 
+    resource function delete stations/[string station]( http:Caller caller ) returns error? {
+        return controller:deleteStation(caller, station);
+    }
+
     resource function post search( http:Caller caller, @http:Payload model:TrainFilter filter ) returns error? {
         return controller:filterTrains(caller, filter);
     }
