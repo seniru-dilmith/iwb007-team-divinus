@@ -11,8 +11,14 @@ In the project directory, you can run:
 
 ### `npm start`  
 
-Runs the app in development mode.  
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. If you need you can change the default port to run the react server by modifying [package.json](./package.json) with,
+
+```bash
+"scripts": {
+  "start": "PORT=3001 react-scripts start",
+  ...
+}
+```
 
 The page will reload automatically if you make changes.  
 You may also see lint errors in the console.
