@@ -1,41 +1,30 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card, Button, Row, Col, Modal, Table } from 'react-bootstrap';
-import '../../css/listOfTrains/train-card.css';
+import { useNavigate } from 'react-router-dom';
 
-const TrainCard = ({ train, bookingData }) => {  // Make sure bookingData is passed in as a prop
-  const navigate = useNavigate(); // Initialize navigate
+const TrainCard = ({ train, bookingData }) => {
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);  // State to control modal visibility
 
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
-  const [schedule, setSchedule] = useState([]); // State to store train schedule
-
-  // Handle "More" button click to open modal and fetch schedule
-  const handleShowDetails = async () => {
-    setShowModal(true);
-
-    // Dummy schedule data for now
-    const dummySchedule = [
-      { destination: 'Kandy', arrival: '10:10 p.m.', departure: '11:10 p.m.' },
-      { destination: 'Nanu Oya', arrival: '12:30 p.m.', departure: '1:10 p.m.' },
-      { destination: 'Badulla', arrival: '2:30 p.m.', departure: '3:00 p.m.' },
-      { destination: 'Colombo Fort', arrival: '4:00 p.m.', departure: '5:00 p.m.' },
-    ];
-    setSchedule(dummySchedule); // Set dummy data to schedule
+  // Function to handle the "More Info" button click
+  const handleMoreInfo = () => {
+    setShowModal(true);  // Show the modal
   };
 
-  // Handle closing the modal
-  const handleClose = () => setShowModal(false);
+  // Function to handle closing the modal
+  const handleCloseModal = () => {
+    setShowModal(false);  // Hide the modal
+  };
 
-  // Handle "Book" button click
-  const handleBook = () => {
-    navigate('/payment', { 
+  // Function to handle the "Book Now" button
+  const handleBookNow = () => {
+    navigate('/payment', {
       state: {
-         train,
-         bookingData
-      } 
+        train,
+        bookingData
+      }
     });
   };
-
 
   return (
     <>
@@ -51,88 +40,72 @@ const TrainCard = ({ train, bookingData }) => {  // Make sure bookingData is pas
           </Col>
 
           {/* Train Info */}
-          <Col xs={12} md={3}>
+          <Col xs={12} md={4}>
             <div className="train-info">
               <h5 className="train-name">{train.name}</h5>
-              <p className="train-subtext">{train.subText}</p>
             </div>
             <div className="train-seats">
-              <div className="seat-circle">
-                <div className="seat-number">1</div>
-                <div className="available-seats">({train.seatAvailability.firstClass})</div>
-              </div>
-              <div className="seat-circle">
-                <div className="seat-number">2</div>
-                <div className="available-seats">({train.seatAvailability.secondClass})</div>
-              </div>
-              <div className="seat-circle">
-                <div className="seat-number">3</div>
-                <div className="available-seats">({train.seatAvailability.thirdClass})</div>
-              </div>
+              <Button variant="warning" className="seat-btn mx-1">1 ({train.seatAvailability.firstClass})</Button>
+              <Button variant="warning" className="seat-btn mx-1">2 ({train.seatAvailability.secondClass})</Button>
+              <Button variant="warning" className="seat-btn mx-1">3 ({train.seatAvailability.thirdClass})</Button>
             </div>
           </Col>
 
-          {/* Arrival Time */}
-          <Col xs={12} md={2} className="text-center">
-            <p className="arrival-time">{train.arrivesAt}</p>
-            <p className="time-label">Arrives</p>
-          </Col>
-
-          {/* Departure Time */}
-          <Col xs={12} md={2} className="text-center">
-            <p className="departure-time">{train.departsAt}</p>
-            <p className="time-label">Departs</p>
+          {/* Arrival and Departure Time */}
+          <Col xs={12} md={3} className="text-center">
+            <div className="train-time">
+              <h6>Arrival: {train.arrivesAt}</h6>
+              <h6>Departure: {train.departsAt}</h6>
+            </div>
           </Col>
 
           {/* Action Buttons */}
-          <Col xs={12} md={1} className="text-center">
+          <Col xs={12} md={3} className="text-center">
             <Button
               variant="warning"
-              className="more-btn"
-              onClick={handleShowDetails}
+              className="more-btn py-2 px-3 m-2"
+              onClick={handleMoreInfo}  // Attach the event handler for "More Info"
             >
-              More <i className="fas fa-caret-down"></i>
+              More Info
             </Button>
-          </Col>
-          <Col xs={12} md={1} className="text-center">
-            <Button variant="primary" className="book-btn" onClick={handleBook}>
-              Book <i className="fas fa-arrow-right"></i>
+            <Button
+              variant="primary"
+              className="book-btn py-2 px-3 m-2"
+              onClick={handleBookNow}  // Attach the event handler for "Book Now"
+            >
+              Book Now
             </Button>
           </Col>
         </Row>
       </Card>
 
-      {/* Modal to display the train schedule */}
-      <Modal show={showModal} onHide={handleClose} size="lg" centered>
+      {/* Modal for More Info */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{train.name} - Schedule</Modal.Title>
+          <Modal.Title>{train.name} - Train Schedule</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {schedule.length > 0 ? (
-            <Table responsive bordered hover className="train-schedule-table">
-              <thead>
-                <tr>
-                  <th>Destination</th>
-                  <th>Arrival Time</th>
-                  <th>Departure Time</th>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Station</th>
+                <th>Arrival</th>
+                <th>Departure</th>
+              </tr>
+            </thead>
+            <tbody>
+              {train.stations.map((station, index) => (
+                <tr key={index}>
+                  <td>{station.station}</td>
+                  <td>{station.arrival}</td>
+                  <td>{station.departure}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {schedule.map((stop, index) => (
-                  <tr key={index}>
-                    <td>{stop.destination}</td>
-                    <td>{stop.arrival}</td>
-                    <td>{stop.departure}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          ) : (
-            <p className="text-center">No schedule available for this train.</p>
-          )}
+              ))}
+            </tbody>
+          </Table>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
         </Modal.Footer>

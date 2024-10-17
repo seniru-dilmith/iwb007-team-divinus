@@ -9,7 +9,7 @@ const TrainDetails = ({ train, bookingData }) => {
         <tbody>
           <tr>
             <td><strong>Train:</strong></td>
-            <td><a href="#" className="train-link">{train?.name || 'N/A'}</a></td>
+            <td><strong>{train?.name || 'N/A'}</strong></td>
           </tr>
           <tr>
             <td><strong>Arrival Time:</strong></td>

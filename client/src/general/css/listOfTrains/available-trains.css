@@ -1,23 +1,61 @@
+/* Available Trains Container */
 .available-trains-container {
-  padding: 20px;
+  padding: 0 5%;
   background-color: #f9f9f9;
   border-radius: 10px;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto; /* Ensure it's centered */
 }
 
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.navbar {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+/* Footer Container Fix */
+.footer {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+}
+
+/* Train Card Styling */
 .train-card {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   background-color: #fff;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 100%; /* Ensure it stays within the parent container */
 }
 
+.train-card .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  height: 100%; /* Ensure it fills the vertical space */
+}
+
+/* Train Logo */
 .train-logo img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
+  margin: 0 auto;
+  display: block;
 }
 
+/* Train Info */
 .train-info h5 {
   font-weight: bold;
   margin-bottom: 5px;
@@ -28,27 +66,49 @@
   font-size: 0.9rem;
 }
 
-.train-seats .seat-btn {
-  background-color: #ffc107;
-  border: none;
-  color: #fff;
-  margin-right: 10px;
-  border-radius: 5px;
-  font-weight: bold;
-  width: 40px;
-  height: 40px;
+/* Train Seats */
+.train-seats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
+.train-seats .seat-circle {
+  background-color: #ffc107;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+.train-seats .seat-number {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.train-seats .available-seats {
+  font-size: 0.75rem;
+  color: #fff;
+  margin-top: 3px;
+}
+
+/* Time Display for Arrival and Departure */
 .arrival-time, .departure-time {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.more-btn, .book-btn {
-  width: 100%;
-  border-radius: 20px;
-  font-size: 0.9rem;
+.time-label {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 5px;
 }
+
+/* More and Book Buttons */
 
 .more-btn {
   background-color: #f5b942;
@@ -60,24 +120,273 @@
   color: #fff;
 }
 
+/* No Trains Message */
 .no-trains {
   font-size: 1.2rem;
   color: #888;
   padding: 20px;
 }
 
-.train-seats .seat-btn {
-  background-color: #ffcc66;
-  color: #fff;
-  border: none;
-  margin-right: 5px;
-  padding: 5px 10px;
-  border-radius: 20px;
+.train-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .train-card {
+    padding: 15px;
+  }
+
+  .train-seats {
+    justify-content: space-around;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .seat-circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .seat-number {
+    font-size: 1rem;
+  }
+
+  .available-seats {
+    font-size: 0.7rem;
+  }
+
+  .more-btn, .book-btn {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .arrival-time, .departure-time {
+    font-size: 1rem;
+  }
+
+  .time-label {
+    font-size: 0.75rem;
+  }
+
+  .train-logo img {
+    width: 80%; /* Reduce logo size for smaller screens */
+  }
+
+  .train-info h5 {
+    font-size: 1rem;
+  }
+}
+  
+  /* Available Trains Container */
+.available-trains-container {
+  padding: 2% 5%;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  margin: 0 auto;
+  max-width: 1200px; /* Restrict width for larger screens */
+}
+
+/* Train Card Styling */
+.train-card {
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  max-width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.train-card .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 10px 20px; /* Add more padding for buttons */
+  border-radius: 8px;
   font-size: 1rem;
 }
 
-.seat-availability {
-  font-size: 0.85rem;
+/* Train Logo */
+.train-logo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Train Info Section */
+.train-info h5 {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
   color: #333;
-  margin-left: 5px;
+}
+
+.train-info p {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* Train Seats Section */
+.train-seats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.train-seats .seat-circle {
+  background-color: #ffc107;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.2rem;
+}
+
+.train-seats .available-seats {
+  font-size: 0.75rem;
+  color: #fff;
+  margin-top: 3px;
+}
+
+/* Arrival and Departure Times */
+.arrival-time, .departure-time {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.time-label {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* Action Buttons */
+.more-btn {
+  background-color: #f5b942;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+}
+
+.book-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+}
+
+/* No Trains Message */
+.no-trains {
+  font-size: 1.2rem;
+  color: #888;
+  padding: 20px;
+}
+
+/* Train Actions Container */
+.train-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .train-card {
+    padding: 15px;
+  }
+
+  .train-seats {
+    justify-content: space-around;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .seat-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+  }
+
+  .available-seats {
+    font-size: 0.7rem;
+  }
+
+  .more-btn, .book-btn {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .arrival-time, .departure-time {
+    font-size: 1rem;
+  }
+
+  .time-label {
+    font-size: 0.75rem;
+  }
+
+  .train-logo img {
+    width: 80%;
+  }
+
+  .train-info h5 {
+    font-size: 1rem;
+  }
+
+  .train-info p {
+    font-size: 0.85rem;
+  }
+
+  .available-trains-container {
+    padding: 10px;
+  }
+}
+
+/* Mobile Design Adjustments */
+@media (max-width: 576px) {
+  .train-seats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .train-card {
+    padding: 10px;
+  }
+
+  .seat-circle {
+    width: 45px;
+    height: 45px;
+  }
+
+  .more-btn, .book-btn {
+    font-size: 0.85rem;
+    padding: 7px 12px;
+  }
+
+  .arrival-time, .departure-time {
+    font-size: 0.95rem;
+  }
+
+  .train-logo img {
+    width: 100px;
+  }
+
+  .train-info p {
+    font-size: 0.85rem;
+  }
+
+  .available-trains-container {
+    padding: 10px;
+  }
 }
