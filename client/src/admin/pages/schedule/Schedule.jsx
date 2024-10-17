@@ -83,69 +83,6 @@ const Schedule = () => {
     fetchTrains();
   }, []);
 
-  // add a new station
-  const handleAddStation = () => {
-    if (newStation) {
-      const newStations = newStation
-      .split(',')
-      .map((station) => station.trim())
-      .filter((station) => station && !stations.includes(station));
-
-      if (!newStations.length) {
-        alert('This station already exists!');
-        return;
-      }
-
-      if(!axios) return;
-
-      axios.post('/train/stations', { station: newStations })
-        .then((response) => {
-          console.log(response);
-          setStations((prevStations) => [...prevStations, ...newStations]);
-          setNewStation('');
-        })
-    } else alert('Please enter a station name!');
-
-  };
-  
-  useEffect(() => {
-    if(!axios) return;
-
-    axios.get('/train/stations')
-      .then((response) => {
-        setStations(response.data.stations);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-
-  // remove a station
-  const handleRemoveStation = () => {
-    if (!stationToRemove) {
-      alert('Please select a station to remove!');
-      return;
-    }
-
-    const confirmDelete = window.confirm(`Are you sure you want to remove "${stationToRemove}"?`);
-    if (confirmDelete) {
-      if(!axios) return;
-
-      axios.delete(`/train/stations/${stationToRemove}`)
-        .then((response) => {
-          console.log(response);
-          setStations((prevStations) =>
-            prevStations.filter((station) => station !== stationToRemove)
-          );
-          setStationToRemove('');
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
-
   const handleDeleteTrain = (trainId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this train?"

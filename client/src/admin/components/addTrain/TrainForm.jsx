@@ -97,31 +97,38 @@ const TrainForm = () => {
 
     const trainData = {
       name: trainName,
-      stations: selectedStations.filter((entry) => entry.station !== ''),
-      routined,
-      date,
+      destinations: selectedStations.filter((entry) => entry.station !== ''),
+      isDaily : routined,
+      startDate : date,
       seats: {
-        firstClass: seats.firstClass,
-        secondClass: seats.secondClass,
-        thirdClass: seats.thirdClass,
-      },
-    };
+        firstClass: {
+          totalSeats: seats.firstClass,
+          availableSeats: seats.firstClass
+        },
+        secondClass: {
+          totalSeats: seats.secondClass,
+          availableSeats: seats.secondClass
+        },
+        thirdClass: {
+          totalSeats: seats.thirdClass,
+          availableSeats: seats.thirdClass
+        }
+      }
+    }
+
+    if(!axios) return;
+
+    axios.post('/train/schedule', trainData)
+      .then((response) => {
+        console.log(response);
+        alert('Train added successfully!');
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Failed to add train!');
+      });
 
     console.log('Train details submitted:', trainData);
-
-    // Uncomment the following block to send a POST request with axios
-    /*
-    try {
-      const response = await axios.post('https://your-api.com/train/add', trainData);
-      if (response.status === 200) {
-        console.log('Train added successfully:', response.data);
-      } else {
-        console.error('Failed to add train:', response);
-      }
-    } catch (error) {
-      console.error('Error adding train:', error);
-    }
-    */
   };
 
   return (

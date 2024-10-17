@@ -1,51 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/schedule/schedule.css';
 import { Container } from 'react-bootstrap';
+import useAxios from '../../../hooks/useAxios';
 
 const StationControl = () => {
 
     const [stations, setStations] = useState([]);
     const [newStation, setNewStation] = useState('');
     const [stationToRemove, setStationToRemove] = useState('');
+    const axios = useAxios();
 
-    // add a new station
-  const handleAddStation = () => {
-    if (newStation) {
-      const newStations = newStation
-      .split(',')
-      .map((station) => station.trim())
-      .filter((station) => station && !stations.includes(station));
+ // add a new station
+ const handleAddStation = () => {
+  if (newStation) {
+    const newStations = newStation
+    .split(',')
+    .map((station) => station.trim())
+    .filter((station) => station && !stations.includes(station));
 
-      if (!newStations.length) {
-        alert('This station already exists!');
-        return;
-      }
-    
-      setStations((prevStations) => [...prevStations, ...newStations]);
-      // axios call to add station to the database
-      // await axios.post('http://localhost:5000/add-stations', { name: newStations });
-      setNewStation(''); // clear the input field
+    if (!newStations.length) {
+      alert('This station already exists!');
+      return;
+    }
 
-    } else alert('Please enter a station name!');
+    if(!axios) return;
 
-  };
+    axios.post('/train/stations', { station: newStations })
+      .then((response) => {
+        console.log(response);
+        setStations((prevStations) => [...prevStations, ...newStations]);
+        setNewStation('');
+      })
+  } else alert('Please enter a station name!');
 
-  // fetch stations from the database
-  const fetchStations = async () => {
-    // Dummy data (replace with API call when ready)
-    const dummyStations = ['Colombo Fort', 'Kandy', 'Badulla', 'Anuradhapura', 'Jaffna'];
-    setStations(dummyStations);
-    //axios call to fetch stations from the database
-    // const response = await axios.get('http://localhost:5000/stations');
-    // setStations(response.data);
-  };
+};
 
   useEffect(() => {
-    fetchStations();
+    if(!axios) return;
+
+    axios.get('/train/stations')
+      .then((response) => {
+        setStations(response.data.stations);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
 
-  // remove a station
+   // remove a station
   const handleRemoveStation = () => {
     if (!stationToRemove) {
       alert('Please select a station to remove!');
@@ -53,12 +56,20 @@ const StationControl = () => {
     }
 
     const confirmDelete = window.confirm(`Are you sure you want to remove "${stationToRemove}"?`);
-    if (confirmDelete) {
-      setStations((prevStations) =>
-        prevStations.filter((station) => station !== stationToRemove)
-      );
-      // await axios.delete(`http://localhost:5000/remove-station/${stationToRemove}`);
-      setStationToRemove('');
+      if (confirmDelete) {
+        if(!axios) return;
+
+        axios.delete(`/train/stations/${stationToRemove}`)
+          .then((response) => {
+            console.log(response);
+            setStations((prevStations) =>
+              prevStations.filter((station) => station !== stationToRemove)
+            );
+            setStationToRemove('');
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     }
   };
     
