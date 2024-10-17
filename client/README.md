@@ -42,6 +42,22 @@ This command copies all configuration files and dependencies into your project, 
 
 ---
 
+## Project Structure
+
+```bash
+client/
+├── node_modules/          # Project dependencies
+├── public/                # Static files for the React app
+├── src/                   # Source code for the React components
+├── .env                   # Environment variables
+├── .env.example           # Example environment variables file
+├── .gitignore             # Git ignore rules
+├── package-lock.json      # Locks dependencies to specific versions
+├── package.json           # Project metadata and dependencies
+└── README.md              # Documentation for the frontend
+
+```
+
 ## Create an Environment File  
 
 1. Locate the `.env.example` file in the project directory.
