@@ -4,6 +4,7 @@ import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import SeatSelector from './SeatSelector';
 import AddButton from './AddButton';
 import useAxios from '../../../hooks/useAxios';
+import useWaiter from '../../../hooks/useWaiter';
 
 const TrainForm = () => {
   const [seats, setSeats] = useState({
@@ -18,12 +19,14 @@ const TrainForm = () => {
   const [selectedStations, setSelectedStations] = useState([{ station: '', time: '' }]);
   const [dropdownOpen, setDropdownOpen] = useState(Array(selectedStations.length).fill(false));
   const [date, setDate] = useState('');
+  const { addWaiter, removeWaiter } = useWaiter();
 
   const axios = useAxios();
 
   // Fetch stations data (using dummy data for now)
   useEffect(() => {
     if(!axios) return;
+    addWaiter('Fetching stations in train form...');
 
     axios.get('/train/stations')
       .then((response) => {
@@ -31,6 +34,9 @@ const TrainForm = () => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        removeWaiter('Fetching stations in train form...');
       });
   }, [axios]);
 
@@ -117,6 +123,7 @@ const TrainForm = () => {
     }
 
     if(!axios) return;
+    addWaiter('Adding new train...');
 
     axios.post('/train/schedule', trainData)
       .then((response) => {
@@ -126,6 +133,9 @@ const TrainForm = () => {
       .catch((error) => {
         console.error(error);
         alert('Failed to add train!');
+      })
+      .finally(() => {
+        removeWaiter('Adding new train...');
       });
 
     console.log('Train details submitted:', trainData);

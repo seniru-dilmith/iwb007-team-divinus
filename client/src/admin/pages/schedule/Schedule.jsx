@@ -9,6 +9,7 @@ import StationControl from "../../components/schedule/StationControl";
 import "../../css/schedule/schedule.css";
 import { Link } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
+import useWaiter from "../../../hooks/useWaiter";
 
 const Schedule = () => {
   const [trains, setTrains] = useState([]);
@@ -16,9 +17,11 @@ const Schedule = () => {
   const [showModal, setShowModal] = useState(false);
 
   const axios = useAxios();
+  const { addWaiter, removeWaiter } = useWaiter();
 
   useEffect(() => {
     if (!axios) return;
+    addWaiter("Fetching trains...");
 
     axios.get("/train/schedule")
       .then((response) => {
@@ -26,6 +29,9 @@ const Schedule = () => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        removeWaiter("Fetching trains...");
       });
 
   }, [axios]);
@@ -33,6 +39,7 @@ const Schedule = () => {
   const handleDeleteTrain = (deleteTrain) => {
     if(!axios) return;
     const confirmDelete = window.confirm("Are you sure you want to delete this train?");
+    addWaiter("Deleting train...");
 
     if (confirmDelete) {
       axios.delete(`/train/schedule/${deleteTrain._id["$oid"]}`)
@@ -42,6 +49,9 @@ const Schedule = () => {
         })
         .catch((error) => {
           console.error(error);
+        })
+        .finally(() => {
+          removeWaiter("Deleting train...");
         });
     }
   };
@@ -60,6 +70,9 @@ const Schedule = () => {
       )
     );
   
+    if (!axios) return;
+    addWaiter("Updating train...");
+
     axios.put(`/train/schedule/${updatedTrain._id["$oid"]}`, updatedTrain)
       .then((response) => {
         console.log(response);
@@ -67,6 +80,9 @@ const Schedule = () => {
       .catch((error) => {
         console.error(error);
         setTrains(originalTrains);
+      })
+      .finally(() => {
+        removeWaiter("Updating train...");
       });
   
     setShowModal(false);

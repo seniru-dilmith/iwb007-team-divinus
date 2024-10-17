@@ -3,13 +3,16 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { FaPlusCircle } from "react-icons/fa";
 import "../../css/schedule/editTrainModal.css";
 import axios from "../../../api/axios";
+import useWaiter from "../../../hooks/useWaiter";
 
 const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
   const [editedTrain, setEditedTrain] = useState(null);
   const [availableStations, setAvailableStations] = useState([]);
+  const {addWaiter, removeWaiter} = useWaiter();
 
   useEffect(() => {
     if(!axios) return;
+    addWaiter('Fetching stations in edit train modal...');
 
     axios.get('/train/stations')
       .then((response) => {
@@ -17,6 +20,9 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
       })
       .catch((error) => {
         console.error("Error fetching stations:", error);
+      })
+      .finally(() => {
+        removeWaiter('Fetching stations in edit train modal...');
       });
   }, []);
 
