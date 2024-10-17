@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
-// import axios from 'axios';
+import { FaPlusCircle } from "react-icons/fa";
+// import axios from 'axios'; // Uncomment when backend is ready.
 import "../../css/schedule/editTrainModal.css";
 
 const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
@@ -147,10 +147,10 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
               >
                 <button
                   type="button"
-                  className="btn btn-outline-danger btn-sm rounded-circle remove-destination-btn"
+                  className="btn btn-danger btn-sm remove-destination-btn"
                   onClick={() => handleRemoveDestination(index)}
                 >
-                  <FaMinusCircle />
+                  &times;
                 </button>
               </Col>
             </Row>
@@ -160,7 +160,7 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
             className="mt-2"
             onClick={handleAddDestination}
           >
-             Add Destination
+            <FaPlusCircle /> Add Destination
           </Button>
 
           <h5 className="mt-4">Seats</h5>
