@@ -17,6 +17,7 @@ const TrainForm = () => {
   const [stations, setStations] = useState([]);
   const [selectedStations, setSelectedStations] = useState([{ station: '', time: '' }]);
   const [dropdownOpen, setDropdownOpen] = useState(Array(selectedStations.length).fill(false));
+  const [date, setDate] = useState('');
 
   // Fetch stations data (using dummy data for now)
   useEffect(() => {
@@ -104,6 +105,7 @@ const TrainForm = () => {
       name: trainName,
       stations: selectedStations.filter((entry) => entry.station !== ''),
       routined,
+      date,
       seats: {
         firstClass: seats.firstClass,
         secondClass: seats.secondClass,
@@ -135,7 +137,7 @@ const TrainForm = () => {
 
       {/* Train Name */}
       <Row className="mb-3">
-        <Col xs={12}>
+        <Col xs={8}>
           <Form.Group controlId="trainName">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -143,6 +145,20 @@ const TrainForm = () => {
               placeholder="Name of Train"
               value={trainName}
               onChange={(e) => setTrainName(e.target.value)}
+              style={{ height: '3rem' }}
+              required
+            />
+          </Form.Group>
+        </Col>
+        {/* Train Date */}
+        <Col xs={4}>
+          <Form.Group controlId="date">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              style={{ height: '3rem' }}
               required
             />
           </Form.Group>
