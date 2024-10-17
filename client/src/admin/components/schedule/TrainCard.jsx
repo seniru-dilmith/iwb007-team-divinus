@@ -10,7 +10,7 @@ const TrainCard = ({ train, onDelete, onEdit }) => {
   };
 
   const handleEdit = () => {
-    onEdit(train);
+    onEdit({ ...train});
   };
 
   return (
