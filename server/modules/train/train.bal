@@ -3,7 +3,12 @@ import server.controller;
 import server.model;
 
 
-public http:Service trainService = service object {
+public http:Service trainService = @http:ServiceConfig{
+    cors: {
+        allowOrigins: ["*"],
+        allowCredentials: true
+    }
+} service object {
     resource function get schedule( http:Caller caller ) returns error? {
         return controller:getTrainSchedules(caller);
     }
