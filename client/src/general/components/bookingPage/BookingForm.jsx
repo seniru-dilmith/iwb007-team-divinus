@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faTrain, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import '../../css/bookingPage/booking-form.css';
+import axios from '../../../api/axios';
 
 const BookingForm = () => {
   const [locations, setLocations] = useState([]);
@@ -15,50 +16,37 @@ const BookingForm = () => {
 
   // Fetch dummy locations data (useEffect runs when the component mounts)
   useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        // Dummy locations data
-        const dummyLocations = ['Anuradhapura', 'Colombo', 'Moratuwa', 'Jaffna', 'Panadura'];
-        // const response = await axios.get('https://your-api.com/locations');
-        setLocations(dummyLocations);
-      } catch (error) {
-        console.error('Error fetching locations:', error);
-      }
-    };
 
-    fetchLocations();
+    axios.get('/train/stations')
+      .then((res) => {
+        setLocations(res.data.stations);
+      })
+      .catch((err) => {
+        console.error('Error fetching locations:', err);
+      });
+
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
 
     const bookingData = {
       date: selectedDate,
-      arrival,
-      departure,
+      arrivalStation : arrival,
+      departureStation : departure,
     };
 
-    // Simulating an API response with dummy data
-    setTimeout(() => {
-      const dummyTrains = [
-        {
-          id: 1,
-          name: "Udarata Manike",
-          arrivesAt: "10:10 p.m.",
-          departsAt: "11:10 p.m.",
-        },
-        {
-          id: 2,
-          name: "Podi Menike",
-          arrivesAt: "9:00 a.m.",
-          departsAt: "10:00 a.m.",
-        },
-      ];
-      console.log('Dummy booking successful:', dummyTrains);
-      navigate('/trains', { state: { trains: dummyTrains, bookingData } });
-      setLoading(false); // Stop loading
-    }, 1500); // Simulating a delay of 1.5 seconds
+    console.log(bookingData);
+    
+    // need to check this
+    axios.post('/train/search', bookingData)
+      .then((res) => {
+        console.log('Trains:', res.data);
+        navigate('/trains', { state: { trains: res.data.trains, bookingData } });
+      })
+      .catch((err) => {
+        console.error('Error fetching trains:', err);
+      });
   };
 
   return (

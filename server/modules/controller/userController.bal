@@ -2,11 +2,12 @@ import ballerina/http;
 import server.model;
 import ballerina/crypto;
 import ballerina/jwt;
+// import ballerina/io;
 
 configurable string access_token_secret = ? ;
 configurable string refresh_token_secret = ?;
 
-function generateJWT(map<json> payload, string secret) returns string|error {
+function generateJWT(map<json> payload, string secret, decimal expTime) returns string|error {
     
     jwt:IssuerConfig issuerConfig = {
         issuer: "bookMyTrain",
@@ -14,7 +15,7 @@ function generateJWT(map<json> payload, string secret) returns string|error {
             algorithm: "HS256",
             config: secret
             },
-        expTime: 3600,
+        expTime: expTime,
         customClaims: payload
     };
 
@@ -65,9 +66,9 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
         return ();
     }
 
-    string access_token = check generateJWT({"email": dbUser.email}, access_token_secret);
-    string refresh_token = check generateJWT({"email": dbUser.email}, access_token_secret);
-    http:Cookie tokenCookie = new("token", refresh_token, httpOnly = true, secure = true, maxAge = 3600);
+    string access_token = check generateJWT({"email": dbUser.email}, access_token_secret, 600);
+    string refresh_token = check generateJWT({"email": dbUser.email}, refresh_token_secret, 3600);
+    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, secure = true, maxAge = 3600);
 
     res.statusCode = 200;
     res.addCookie(tokenCookie);
@@ -108,6 +109,41 @@ public function userRegister(http:Caller caller, model:User user) returns error?
 
     check caller->respond(res);
 
+    return ();
+}
+
+public function refreshToken(http:Caller caller, http:Request req) returns error? {
+    http:Cookie[] cookies = req.getCookies();
+
+    string? old_refresh_token = ();
+
+    foreach var cookie in cookies {
+        if(cookie.name == "refresh_token"){
+            old_refresh_token = cookie.value;
+        }
+    }
+
+    if(old_refresh_token == ()){
+        http:Response res = new;
+        res.statusCode = 400;
+        res.setJsonPayload({"message": "Refresh token not found"});
+        check caller->respond(res);
+        return ();
+    }
+
+    jwt:Payload payload = check validateJWT(old_refresh_token, refresh_token_secret);
+
+    string email = payload.get("email").toString();
+
+    string access_token = check generateJWT({"email": email}, access_token_secret, 600);
+    string refresh_token = check generateJWT({"email": email}, refresh_token_secret, 3600);
+
+    http:Response res = new;
+    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, secure = true, maxAge = 3600);
+    res.statusCode = 200;
+    res.addCookie(tokenCookie);
+    res.setJsonPayload({"message": "Token refreshed", "access_token" : access_token });
+    check caller->respond(res);
     return ();
 }
 
