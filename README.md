@@ -63,4 +63,4 @@ Once both the frontend and backend are set up, you will see the server and front
 
 ## License
 
-This project is licensed under [LICENSE_NAME]. See the `LICENSE` file for more details.
+This project is licensed under MIT LICENSE. See the [LICENSE](/LICENSE) file for more details.
