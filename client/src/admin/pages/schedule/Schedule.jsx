@@ -8,50 +8,41 @@ import EditTrainModal from "../../components/schedule/EditTrainModal";
 import StationControl from "../../components/schedule/StationControl";
 import "../../css/schedule/schedule.css";
 import { Link } from "react-router-dom";
+import useAxios from "../../../hooks/useAxios";
 
 const Schedule = () => {
   const [trains, setTrains] = useState([]);
   const [editingTrain, setEditingTrain] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const axios = useAxios();
+
   useEffect(() => {
-    const fetchTrains = async () => {
-      const dummyTrains = [
-        {
-          id: 1,
-          name: "Uththara Devi",
-          destinations: [
-            { station: "Kandy", time: "06:00" },
-            { station: "Peradeniya", time: "06:30" },
-          ],
-          seats: { firstClass: 100, secondClass: 300, thirdClass: 200 },
-          seatsBooked: { firstClass: 20, secondClass: 50, thirdClass: 10 },
-          isDaily: true,
-          startDate: "2024-11-20",
-        },
-        {
-          id: 2,
-          name: "Yal Devi",
-          destinations: [
-            { station: "Anuradhapura", time: "05:00" },
-            { station: "Jaffna", time: "09:30" },
-          ],
-          seats: { firstClass: 40, secondClass: 80, thirdClass: 50 },
-          seatsBooked: { firstClass: 20, secondClass: 30, thirdClass: 5 },
-          isDaily: false,
-          startDate: "2024-11-16",
-        },
-      ];
-      setTrains(dummyTrains);
-    };
+    if (!axios) return;
 
-    fetchTrains();
-  }, []);
+    axios.get("/train/schedule")
+      .then((response) => {
+        setTrains(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
-  const handleDeleteTrain = (trainId) => {
+  }, [axios]);
+
+  const handleDeleteTrain = (deleteTrain) => {
+    if(!axios) return;
     const confirmDelete = window.confirm("Are you sure you want to delete this train?");
+
     if (confirmDelete) {
-      setTrains((prevTrains) => prevTrains.filter((train) => train.id !== trainId));
+      axios.delete(`/train/schedule/${deleteTrain._id["$oid"]}`)
+        .then((response) => {
+          setTrains((prevTrains) => prevTrains.filter((train) => train._id !== deleteTrain._id));
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 
@@ -61,6 +52,14 @@ const Schedule = () => {
   };
 
   const updateTrain = (updatedTrain) => {
+    axios.put(`/train/schedule/${updatedTrain._id["$oid"]}`, updatedTrain)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
     setTrains((prevTrains) =>
       prevTrains.map((train) => (train.id === updatedTrain.id ? updatedTrain : train))
     );
@@ -93,11 +92,11 @@ const Schedule = () => {
         </div>
         <h2 className="text-center mt-4">Scheduled Trains</h2>
         <div className="train-list">
-          {trains.map((train) => (
+          {trains.map((train, index) => (
             <TrainCard
-              key={train.id}
+              key={index}
               train={train}
-              onDelete={handleDeleteTrain}
+              onDelete={() => handleDeleteTrain(train)}
               onEdit={handleEditTrain}
             />
           ))}

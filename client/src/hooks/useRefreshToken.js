@@ -9,8 +9,8 @@ const useRefreshToken = () => {
 
         axiosWithCredential.post('/admin/refreshToken')
             .then((res) => {
-                setAccessToken(res.data.accessToken);
-                accessToken = res.data.accessToken;
+                setAccessToken(res.data.access_token);
+                accessToken = res.data.access_token;
                 setIsAuthenticated(true);
             })
             .catch((err) => {
@@ -18,7 +18,7 @@ const useRefreshToken = () => {
                 setAccessToken(null);
                 setIsAuthenticated(false);
             })
-        
+            
         return accessToken;
     }
     return refreshToken;

@@ -5,7 +5,7 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.10.0"
+distribution-version = "2201.10.1"
 
 [[package]]
 org = "ballerina"
@@ -256,6 +256,18 @@ dependencies = [
 
 [[package]]
 org = "ballerina"
+name = "random"
+version = "1.5.0"
+dependencies = [
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "time"}
+]
+modules = [
+	{org = "ballerina", packageName = "random", moduleName = "random"}
+]
+
+[[package]]
+org = "ballerina"
 name = "task"
 version = "2.5.0"
 dependencies = [
@@ -316,6 +328,7 @@ dependencies = [
 	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "jwt"},
 	{org = "ballerina", name = "lang.int"},
+	{org = "ballerina", name = "random"},
 	{org = "ballerina", name = "time"},
 	{org = "ballerinai", name = "observe"},
 	{org = "ballerinax", name = "mongodb"}

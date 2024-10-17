@@ -38,8 +38,8 @@ function AppRoutes() {
 
             {/* Admin Routes */}
             <Route path="/admin" element={isAuthenticated ? <Navigate to={'/admin/schedule'} /> : <LoginPage />} /> {/* Admin Dashboard Route */}
-            <Route path="/admin/schedule" element={<Schedule />} /> {/* Schedule a new train */}
-            <Route path="/admin/add-train" element={<AddTrain />} /> {/* Add a new train */}
+            <Route path="/admin/schedule" element={isAuthenticated?<Schedule /> : <Navigate to={'/admin'} />} /> {/* Schedule a new train */}
+            <Route path="/admin/add-train" element={isAuthenticated?<AddTrain />: <Navigate to={'/admin'} />} /> {/* Add a new train */}
 
             {/* Not found page */}
             <Route path="*" element={<NotFound />} /> {/* 404 Route */}

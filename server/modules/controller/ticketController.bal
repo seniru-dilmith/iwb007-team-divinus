@@ -1,10 +1,30 @@
 import server.model;
 import ballerina/http;
 import server.time;
+import ballerina/random;
 
-//need to complete the implementation
-function generateToken() returns string {
-    return "token";
+public function generateToken(model:TicketDetails details) returns string|error {
+    time:Time timeNow = time:timeNow();
+    time:Date today = time:today();
+
+    string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    int charLength = characters.length();
+    string randomStr = "";
+
+    foreach int i in 0...4 {
+        int randomInt = check random:createIntInRange(0,charLength-1);
+        randomStr = string:concat(randomStr, characters[randomInt]);
+    }
+
+    string token = string:concat(
+        details.startStation.substring(0,2),
+        today.day.toString(),
+        randomStr,
+        timeNow.hours.toString(),
+        details.endStation.substring(0,2)
+    );
+
+    return token;
 }
 
 
@@ -20,9 +40,7 @@ public function getTicketDetails(http:Caller caller, string token) returns error
         return ();
     } 
 
-    map<string> trainId = <map<string>>ticket.details.trainScheduleId;
-
-    model:Train? trainSchedule = check model:getTrainById(trainId.get("$oid"));
+    model:Train? trainSchedule = check model:getTrainById(ticket.details.trainScheduleId);
 
     if(trainSchedule is ()){
         res.statusCode = 404;
@@ -31,7 +49,7 @@ public function getTicketDetails(http:Caller caller, string token) returns error
         return ();
     }
 
-    time:Date todayDate = check time:today();
+    time:Date todayDate = time:today();
     time:Date startDate = check time:stringToDate(trainSchedule.startDate);
 
     if(time:isDateAfter(todayDate, startDate)){
@@ -53,7 +71,7 @@ public function getTicketDetails(http:Caller caller, string token) returns error
 }
 
 public function bookTicket(http:Caller caller, model:TicketDetails ticketDetails) returns error? {
-    model:Train? trainSchedule = check model:getTrainById((<map<string>>ticketDetails.trainScheduleId).get("$oid"));
+    model:Train? trainSchedule = check model:getTrainById(ticketDetails.trainScheduleId);
 
     if(trainSchedule is ()){
         http:Response res = new;
@@ -63,7 +81,7 @@ public function bookTicket(http:Caller caller, model:TicketDetails ticketDetails
         return ();
     }
 
-    time:Date todayDate = check time:today();
+    time:Date todayDate = time:today();
     time:Date startDate = check time:stringToDate(trainSchedule.startDate);
 
     if(time:isDateAfter(todayDate, startDate)){
@@ -89,7 +107,7 @@ public function bookTicket(http:Caller caller, model:TicketDetails ticketDetails
     float price = 10.0;
 
     model:Ticket ticket = {
-        token: generateToken(),
+        token: check generateToken(ticketDetails),
         price: price,
         details: ticketDetails
     };
@@ -112,7 +130,7 @@ public function bookTicket(http:Caller caller, model:TicketDetails ticketDetails
     trainSchedule.seats = updatedSeats;
     model:Train modifiedTrain = trainSchedule;
 
-    check model:updateTrainById((<map<string>>ticketDetails.trainScheduleId).get("$oid"), modifiedTrain);
+    check model:updateTrainById(ticketDetails.trainScheduleId, modifiedTrain);
     check model:addTicket(ticket);
 
     http:Response res = new;

@@ -27,6 +27,30 @@ public function getTrainSchedules( http:Caller caller ) returns error? {
 
  // Update a train schedule
 public function updateTrainSchedule(http:Caller caller, string trainId, model:Train train) returns error? {
+    model:Train? existingTrain = check model:getTrainById(trainId);
+
+    if(existingTrain is ()){
+        http:Response res = new;
+        res.statusCode = 404;
+        res.setJsonPayload({"message": "Train not found"});
+        check caller->respond(res);
+        return ();
+    }
+
+    int firstClassBooked = existingTrain.seats.firstClass.totalSeats - existingTrain.seats.firstClass.availableSeats;
+    int secondClassBooked = existingTrain.seats.secondClass.totalSeats - existingTrain.seats.secondClass.availableSeats;
+    int thirdClassBooked = existingTrain.seats.thirdClass.totalSeats - existingTrain.seats.thirdClass.availableSeats;
+
+    if(train.seats.firstClass.totalSeats < firstClassBooked || 
+    train.seats.secondClass.totalSeats < secondClassBooked || 
+    train.seats.thirdClass.totalSeats < thirdClassBooked){
+        http:Response res = new;
+        res.statusCode = 400;
+        res.setJsonPayload({"message": "Total seats cannot be less than booked seats"});
+        check caller->respond(res);
+        return ();
+    }
+
     error? err = model:updateTrainById(trainId, train);
 
     http:Response res = new;
@@ -96,3 +120,20 @@ public function addStations(http:Caller caller, model:Station stations) returns 
 
     return ();
 }
+
+public function deleteStation(http:Caller caller, string station) returns error? {
+    error? err = model:deleteStation(station);
+
+    http:Response res = new;
+    if(err is error && err.message() == "Station not found"){
+        res.statusCode = 404;
+        res.setJsonPayload({"message": "Station not found"});
+    }else {
+        res.statusCode = 200;
+        res.setJsonPayload({"message": "Station deleted successfully"});
+    }
+
+    check caller->respond(res);
+    return err;
+}
+

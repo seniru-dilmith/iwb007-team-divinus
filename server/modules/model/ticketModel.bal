@@ -15,7 +15,7 @@ public type TicketDetails record {|
     string startStation;
     string endStation;
     SeatsQuantity seatsQuantity;
-    json trainScheduleId;
+    string trainScheduleId;
 |};
 
 public type Ticket record {|
@@ -37,9 +37,9 @@ public function addTicket(Ticket ticket) returns error? {
 public function getTicket(string token) returns Ticket|error? {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection ticketCollection = check db->getCollection("ticket");
-
-    Ticket? ticket = check ticketCollection->findOne({"token" : token});
-
+    
+    Ticket? ticket = check ticketCollection->findOne({"token": token});
+    
     return ticket;
 }
 

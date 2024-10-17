@@ -3,7 +3,7 @@ import { Form, Row, Col } from 'react-bootstrap';
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import SeatSelector from './SeatSelector';
 import AddButton from './AddButton';
-// import axios from 'axios'; // Uncomment this when ready to use axios
+import useAxios from '../../../hooks/useAxios';
 
 const TrainForm = () => {
   const [seats, setSeats] = useState({
@@ -19,26 +19,20 @@ const TrainForm = () => {
   const [dropdownOpen, setDropdownOpen] = useState(Array(selectedStations.length).fill(false));
   const [date, setDate] = useState('');
 
+  const axios = useAxios();
+
   // Fetch stations data (using dummy data for now)
   useEffect(() => {
-    const fetchStations = async () => {
-      try {
-        // Uncomment the axios call when API is ready and replace the URL with the correct endpoint
-        /*
-        const response = await axios.get('https://your-api.com/stations');
-        setStations(response.data);
-        */
+    if(!axios) return;
 
-        // Dummy data for stations
-        const dummyStations = ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Badulla'];
-        setStations(dummyStations);
-      } catch (error) {
-        console.error('Error fetching stations:', error);
-      }
-    };
-
-    fetchStations();
-  }, []);
+    axios.get('/train/stations')
+      .then((response) => {
+        setStations(response.data.stations);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [axios]);
 
   // Handle seat changes
   const handleSeatChange = (e, classType) => {
@@ -103,31 +97,38 @@ const TrainForm = () => {
 
     const trainData = {
       name: trainName,
-      stations: selectedStations.filter((entry) => entry.station !== ''),
-      routined,
-      date,
+      destinations: selectedStations.filter((entry) => entry.station !== ''),
+      isDaily : routined,
+      startDate : date,
       seats: {
-        firstClass: seats.firstClass,
-        secondClass: seats.secondClass,
-        thirdClass: seats.thirdClass,
-      },
-    };
+        firstClass: {
+          totalSeats: seats.firstClass,
+          availableSeats: seats.firstClass
+        },
+        secondClass: {
+          totalSeats: seats.secondClass,
+          availableSeats: seats.secondClass
+        },
+        thirdClass: {
+          totalSeats: seats.thirdClass,
+          availableSeats: seats.thirdClass
+        }
+      }
+    }
+
+    if(!axios) return;
+
+    axios.post('/train/schedule', trainData)
+      .then((response) => {
+        console.log(response);
+        alert('Train added successfully!');
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Failed to add train!');
+      });
 
     console.log('Train details submitted:', trainData);
-
-    // Uncomment the following block to send a POST request with axios
-    /*
-    try {
-      const response = await axios.post('https://your-api.com/train/add', trainData);
-      if (response.status === 200) {
-        console.log('Train added successfully:', response.data);
-      } else {
-        console.error('Failed to add train:', response);
-      }
-    } catch (error) {
-      console.error('Error adding train:', error);
-    }
-    */
   };
 
   return (
