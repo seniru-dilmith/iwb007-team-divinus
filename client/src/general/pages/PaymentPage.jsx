@@ -16,10 +16,10 @@ const PaymentPage = () => {
 
   return (
     <div className="payment-page-container">
-      <Navbar /> {/* The Navbar will be visible on all pages */}
+      <Navbar />
       {/* Only include TrainDetails within TicketForm */}
       <TicketForm handlePayment={handlePayment} train={train} bookingData={bookingData} />
-      <Footer /> {/* The Footer will be visible on all pages */}
+      <Footer />
     </div>
   );
 };

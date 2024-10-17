@@ -4,10 +4,9 @@ import '../../css/common/footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer-section bg-dark text-light py-4">
-      <div className="container">
+    <footer className="custom-footer bg-dark text-light">
+      <div>
         <div className="row">
-
           {/* Column 1: Useful Links */}
           <div className="col-lg-6 col-md-6 col-sm-12 mb-4 useful-links">
             <h5>Useful Links</h5>
@@ -38,7 +37,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="row mt-4">
+        <div className="row">
           <div className="col text-center">
             <p className="mb-0">Copyright &copy; {new Date().getFullYear()} Team Divinus <br />
              All Rights Reserved.</p>
