@@ -1,7 +1,7 @@
 # Initialize the React App
 
 ## Prerequisites  
-Before running the app, ensure you have **Node.js** installed. Create your own `.env` file by following the provided [`.env.example`](/.env.example) template.  
+Before running the app, ensure you have **Node.js** installed. Create your own `.env` file by following the provided [`.env.example`](./.env.example) template.  
 
 ---
 
