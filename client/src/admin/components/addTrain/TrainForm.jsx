@@ -3,7 +3,7 @@ import { Form, Row, Col } from 'react-bootstrap';
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import SeatSelector from './SeatSelector';
 import AddButton from './AddButton';
-// import axios from 'axios'; // Uncomment this when ready to use axios
+import useAxios from '../../../hooks/useAxios';
 
 const TrainForm = () => {
   const [seats, setSeats] = useState({
@@ -18,26 +18,20 @@ const TrainForm = () => {
   const [selectedStations, setSelectedStations] = useState([{ station: '', time: '' }]);
   const [dropdownOpen, setDropdownOpen] = useState(Array(selectedStations.length).fill(false));
 
+  const axios = useAxios();
+
   // Fetch stations data (using dummy data for now)
   useEffect(() => {
-    const fetchStations = async () => {
-      try {
-        // Uncomment the axios call when API is ready and replace the URL with the correct endpoint
-        /*
-        const response = await axios.get('https://your-api.com/stations');
-        setStations(response.data);
-        */
+    if(!axios) return;
 
-        // Dummy data for stations
-        const dummyStations = ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Badulla'];
-        setStations(dummyStations);
-      } catch (error) {
-        console.error('Error fetching stations:', error);
-      }
-    };
-
-    fetchStations();
-  }, []);
+    axios.get('/train/stations')
+      .then((response) => {
+        setStations(response.data.stations);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [axios]);
 
   // Handle seat changes
   const handleSeatChange = (e, classType) => {

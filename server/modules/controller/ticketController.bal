@@ -49,7 +49,7 @@ public function getTicketDetails(http:Caller caller, string token) returns error
         return ();
     }
 
-    time:Date todayDate = check time:today();
+    time:Date todayDate = time:today();
     time:Date startDate = check time:stringToDate(trainSchedule.startDate);
 
     if(time:isDateAfter(todayDate, startDate)){

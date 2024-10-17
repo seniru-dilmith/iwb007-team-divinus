@@ -175,3 +175,32 @@ public function userLogout(http:Caller caller, http:Request req) returns error? 
 }
 
 
+public function authorizeToken(http:Caller caller, http:Request req) returns error? {
+    string auth = check req.getHeader("Authorization");
+
+    string:RegExp r = re ` `;
+    string[] splitedAuth = r.split(auth);
+
+    if splitedAuth.length() != 2 {
+        http:Response res = new;
+        res.statusCode = 401;
+        res.setJsonPayload({"message": "Unauthorized"});
+        check caller->respond(res);
+        return error("Unauthorized");
+    }
+
+    string access_token = splitedAuth[1];
+
+    jwt:Payload|error payload= check validateJWT(access_token, access_token_secret);
+
+    if payload is error {
+        http:Response res = new;
+        res.statusCode = 403;
+        res.setJsonPayload({"message": "Forbidden"});
+        check caller->respond(res);
+        return error("Forbidden");
+    }
+
+    return ();
+}
+
