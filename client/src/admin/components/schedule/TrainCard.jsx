@@ -25,19 +25,19 @@ const TrainCard = ({ train, onDelete, onEdit }) => {
           <div className="seat-class">
             <span className="class-number">1</span>
             <span className="seat-count">
-              {train.seatsBooked.firstClass}/{train.seats.firstClass}
+              {train.seats.firstClass.availableSeats}/{train.seats.firstClass.totalSeats}
             </span>
           </div>
           <div className="seat-class">
             <span className="class-number">2</span>
             <span className="seat-count">
-              {train.seatsBooked.secondClass}/{train.seats.secondClass}
+              {train.seats.secondClass.availableSeats}/{train.seats.secondClass.totalSeats}
             </span>
           </div>
           <div className="seat-class">
             <span className="class-number">3</span>
             <span className="seat-count">
-              {train.seatsBooked.thirdClass}/{train.seats.thirdClass}
+              {train.seats.thirdClass.availableSeats}/{train.seats.thirdClass.totalSeats}
             </span>
           </div>
         </div>

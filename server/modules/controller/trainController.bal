@@ -27,6 +27,30 @@ public function getTrainSchedules( http:Caller caller ) returns error? {
 
  // Update a train schedule
 public function updateTrainSchedule(http:Caller caller, string trainId, model:Train train) returns error? {
+    model:Train? existingTrain = check model:getTrainById(trainId);
+
+    if(existingTrain is ()){
+        http:Response res = new;
+        res.statusCode = 404;
+        res.setJsonPayload({"message": "Train not found"});
+        check caller->respond(res);
+        return ();
+    }
+
+    int firstClassBooked = existingTrain.seats.firstClass.totalSeats - existingTrain.seats.firstClass.availableSeats;
+    int secondClassBooked = existingTrain.seats.secondClass.totalSeats - existingTrain.seats.secondClass.availableSeats;
+    int thirdClassBooked = existingTrain.seats.thirdClass.totalSeats - existingTrain.seats.thirdClass.availableSeats;
+
+    if(train.seats.firstClass.totalSeats < firstClassBooked || 
+    train.seats.secondClass.totalSeats < secondClassBooked || 
+    train.seats.thirdClass.totalSeats < thirdClassBooked){
+        http:Response res = new;
+        res.statusCode = 400;
+        res.setJsonPayload({"message": "Total seats cannot be less than booked seats"});
+        check caller->respond(res);
+        return ();
+    }
+
     error? err = model:updateTrainById(trainId, train);
 
     http:Response res = new;

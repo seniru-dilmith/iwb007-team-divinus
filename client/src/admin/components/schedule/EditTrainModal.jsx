@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { FaPlusCircle } from "react-icons/fa";
-// import axios from 'axios'; // Uncomment when backend is ready.
 import "../../css/schedule/editTrainModal.css";
+import useAxios from "../../../hooks/useAxios";
+import axios from "../../../api/axios";
 
 const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
   const [editedTrain, setEditedTrain] = useState(null);
   const [availableStations, setAvailableStations] = useState([]);
 
-  // Dummy data for available stations
-  const dummyStations = [
-    "Kandy",
-    "Colombo Fort",
-    "Gampaha",
-    "Matara",
-    "Peradeniya",
-    "Polgahawela",
-    "Veyangoda",
-  ];
-
-  // Fetch stations (replace with actual API call when ready)
   useEffect(() => {
-    const fetchStations = async () => {
-      try {
-        // const response = await axios.get('/api/stations');
-        // setAvailableStations(response.data);
-        setAvailableStations(dummyStations); // Use dummy data for now.
-      } catch (error) {
-        console.error("Error fetching stations:", error);
-      }
-    };
+    if(!axios) return;
 
-    fetchStations();
+    axios.get('/train/stations')
+      .then((response) => {
+        setAvailableStations(response.data.stations);
+      })
+      .catch((error) => {
+        console.error("Error fetching stations:", error);
+      });
   }, []);
 
   useEffect(() => {
@@ -170,7 +157,7 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
                 <Form.Label>First Class Seats</Form.Label>
                 <Form.Control
                   type="number"
-                  value={editedTrain.seats.firstClass}
+                  value={editedTrain.seats.firstClass.totalSeats}
                   onChange={(e) => handleSeatsChange(e, "firstClass")}
                 />
               </Form.Group>
@@ -180,7 +167,7 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
                 <Form.Label>Second Class Seats</Form.Label>
                 <Form.Control
                   type="number"
-                  value={editedTrain.seats.secondClass}
+                  value={editedTrain.seats.secondClass.totalSeats}
                   onChange={(e) => handleSeatsChange(e, "secondClass")}
                 />
               </Form.Group>
@@ -190,7 +177,7 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
                 <Form.Label>Third Class Seats</Form.Label>
                 <Form.Control
                   type="number"
-                  value={editedTrain.seats.thirdClass}
+                  value={editedTrain.seats.thirdClass.totalSeats}
                   onChange={(e) => handleSeatsChange(e, "thirdClass")}
                 />
               </Form.Group>

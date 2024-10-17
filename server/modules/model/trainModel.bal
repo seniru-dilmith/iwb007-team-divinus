@@ -83,7 +83,7 @@ public function updateTrainById(string id, Train train) returns error? {
 
     mongodb:Update update = {
         set: {
-            train_name: train.name,
+            name: train.name,
             destinations: train.destinations,
             isDaily: train.isDaily,
             startDate: train.startDate,
