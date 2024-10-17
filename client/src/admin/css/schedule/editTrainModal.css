@@ -1,18 +1,125 @@
-.edit-train-modal .form-control {
-    border-radius: 5px;
-    padding: 10px;
+.modal-content {
+    padding: 1rem;
 }
 
-.edit-train-modal .btn-primary {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
+/* Form and Row Styling */
+.station-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
-.edit-train-modal .btn-secondary {
-    background-color: #6c757d;
-    color: white;
+.station-col,
+.time-col {
+    margin-bottom: 16px;
+}
+
+/* Align elements properly */
+.align-items-center {
+    align-items: center !important;
+}
+
+/* Styling for Remove Button */
+.remove-destination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
     border: none;
-    padding: 10px 15px;
+    background-color: #dc3545; /* Bootstrap Danger Color */
+    color: white;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-bottom: -15px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-destination-btn:hover {
+    background-color: #c82333; /* Darker danger color for hover */
+}
+
+/* Responsive Button Styling */
+@media (max-width: 576px) {
+    .remove-destination-btn {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .train-card {
+        font-size: 14px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Add Destination Button */
+.add-destination-btn {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.add-destination-btn:hover {
+    color: #495057; /* Slightly darker gray */
+}
+
+/* Custom Select and Input Styling */
+.station-col select,
+.time-col input {
+    width: 100%;
+    height: 38px;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out;
+}
+
+.station-col select:focus,
+.time-col input:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Delete Button Column Alignment */
+.delete-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal Header and Footer Styling */
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 1.5rem;
+}
+
+/* Responsive Behavior */
+@media (max-width: 768px) {
+    .station-row {
+        flex-direction: column;
+    }
+
+    .delete-col {
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
 }
