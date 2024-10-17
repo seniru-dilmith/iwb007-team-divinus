@@ -3,22 +3,43 @@ import ballerinax/mongodb;
 import server.time;
 
 
+# Description.
+#
+# + totalSeats - total number of seats
+# + availableSeats - available number of seats
 public type SeatsAvailablity record {|
     int totalSeats;
     int availableSeats;
 |};
 
+# Description.
+#
+# + firstClass - first class seat quantity
+# + secondClass - second class seat quantity
+# + thirdClass - third class seat quantity
 public type Seats record {|
     SeatsAvailablity firstClass;
     SeatsAvailablity secondClass;
     SeatsAvailablity thirdClass;
 |};
 
+# Description.
+#
+# + station - station name
+# + time - time to reach the station
 public type Destination record {|
     string station;
     string time;
 |};
 
+# Description.
+#
+# + _id - train id
+# + name - train name
+# + destinations - train destinations
+# + isDaily - is train daily
+# + startDate - train start date 
+# + seats - train seats
 public type Train record {|
     json _id?;
     string name;
@@ -28,17 +49,29 @@ public type Train record {|
     Seats seats;
 |};
 
+# Description.
+#
+# + date - date to filter
+# + arrivalStation - arrivalStation - field description
+# + departureStation - departureStation - field description
 public type TrainFilter record {|
     string date; 
     string arrivalStation; 
     string departureStation;
 |};
 
+# Description.
+#
+# + station - station names
 public type Station record {|
     string[] station;
 |};
 
 
+# Description.
+#
+# + train - train record to insert
+# + return - return error if any
 public function insertTrain(Train train) returns error? {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection trainCollection = check db->getCollection("trains");
@@ -48,6 +81,10 @@ public function insertTrain(Train train) returns error? {
     return ();
 }
 
+# Description.
+#
+# + id - train id
+# + return - return Train object or error if any
 public function getTrainById(string id) returns Train|error? {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection trainCollection = check db->getCollection("trains");
@@ -57,6 +94,8 @@ public function getTrainById(string id) returns Train|error? {
     return train;
 }
 
+# Description.
+# + return - return all Trains or error if any
 public function getAllTrains() returns Train[]|error {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection trainCollection = check db->getCollection("trains");
@@ -77,6 +116,11 @@ public function getAllTrains() returns Train[]|error {
 
 }
 
+# Description.
+#
+# + id - train id
+# + train - updated train record
+# + return - return error if any
 public function updateTrainById(string id, Train train) returns error? {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection trainCollection = check db->getCollection("trains");
@@ -100,6 +144,10 @@ public function updateTrainById(string id, Train train) returns error? {
     return ();
 }
 
+# Description.
+#
+# + id - train id
+# + return - return error if any
 public function deleteTrainById(string id) returns error? {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection trainCollection = check db->getCollection("trains");
@@ -113,6 +161,8 @@ public function deleteTrainById(string id) returns error? {
     return ();
 }
 
+# Description.
+# + return - return all stations or error if any
 public function getStations() returns string[]|error {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection stationCollection = check db->getCollection("stations");
@@ -129,6 +179,10 @@ public function getStations() returns string[]|error {
 }
 
 
+# Description.
+#
+# + stations - stations to add
+# + return - return error if any
 public function addStations(Station stations) returns error? {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection stationCollection = check db->getCollection("stations");
@@ -144,6 +198,10 @@ public function addStations(Station stations) returns error? {
     return ();
 }
 
+# Description.
+#
+# + filter - filter object to filter trains
+# + return - return filtered trains or error if any
 public function filterTrains(TrainFilter filter) returns Train[]|error {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection trainCollection = check db->getCollection("trains");
@@ -197,6 +255,10 @@ public function filterTrains(TrainFilter filter) returns Train[]|error {
 }
 
 
+# Description.
+#
+# + station - station to delete
+# + return - return error if any
 public function deleteStation(string station) returns error? {
     mongodb:Database db = check database:getDatabase();
     mongodb:Collection stationCollection = check db->getCollection("stations");

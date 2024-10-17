@@ -3,6 +3,10 @@ import ballerina/http;
 import server.time;
 import ballerina/random;
 
+# Description.
+#
+# + details - Ticket details to generate the token
+# + return - returns the generated token
 public function generateToken(model:TicketDetails details) returns string|error {
     time:Time timeNow = time:timeNow();
     time:Date today = time:today();
@@ -28,6 +32,11 @@ public function generateToken(model:TicketDetails details) returns string|error 
 }
 
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + token - token to get the ticket details
+# + return - returns an error if there is an error in the model
 public function getTicketDetails(http:Caller caller, string token) returns error? {
     model:Ticket? ticket = check model:getTicket(token);
 
@@ -70,6 +79,11 @@ public function getTicketDetails(http:Caller caller, string token) returns error
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + ticketDetails - ticket details to book the ticket
+# + return - returns an error if there is an error in the model
 public function bookTicket(http:Caller caller, model:TicketDetails ticketDetails) returns error? {
     model:Train? trainSchedule = check model:getTrainById(ticketDetails.trainScheduleId);
 
@@ -108,6 +122,7 @@ public function bookTicket(http:Caller caller, model:TicketDetails ticketDetails
 
     model:Ticket ticket = {
         token: check generateToken(ticketDetails),
+        status: "active",
         price: price,
         details: ticketDetails
     };
@@ -136,6 +151,41 @@ public function bookTicket(http:Caller caller, model:TicketDetails ticketDetails
     http:Response res = new;
     res.statusCode = 201;
     res.setJsonPayload({"message": "Ticket booked successfully", "token": ticket.token});
+    check caller->respond(res);
+    return ();
+}
+
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + token - token to validate the ticket
+# + return - returns an error if there is an error in the model
+public function validateTicket(http:Caller caller, string token) returns error? {
+    model:Ticket? ticket = check model:getTicket(token);
+
+    if(ticket is ()){
+        http:Response res = new;
+        res.statusCode = 404;
+        res.setJsonPayload({"message": "Ticket not found"});
+        check caller->respond(res);
+        return ();
+    }
+
+    if(ticket.status == "expired"){
+        http:Response res = new;
+        res.statusCode = 404;
+        res.setJsonPayload({"message": "Ticket has expired"});
+        check caller->respond(res);
+        return ();
+    }
+
+    ticket.status = "expired";
+
+    check model:updateTicket(token, ticket);
+
+    http:Response res = new;
+    res.statusCode = 200;
+    res.setJsonPayload({"message": "Ticket status updated successfully"});
     check caller->respond(res);
     return ();
 }

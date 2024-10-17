@@ -46,6 +46,11 @@ function encryptPassword(string password) returns string {
     return hashedPassword;
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + user - user to login
+# + return - returns an error if there is an error in the model
 public function userLogin(http:Caller caller, model:User user) returns error? {
 
     http:Response res = new;
@@ -79,6 +84,11 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + user - user to register
+# + return - returns an error if there is an error in the model
 public function userRegister(http:Caller caller, model:User user) returns error? {
 
     if(!(user.name is string)){
@@ -112,6 +122,11 @@ public function userRegister(http:Caller caller, model:User user) returns error?
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
 public function refreshToken(http:Caller caller, http:Request req) returns error? {
     http:Cookie[] cookies = req.getCookies();
 
@@ -147,6 +162,11 @@ public function refreshToken(http:Caller caller, http:Request req) returns error
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
 public function userLogout(http:Caller caller, http:Request req) returns error? {
     http:Cookie[] cookies = req.getCookies();
 
@@ -175,6 +195,11 @@ public function userLogout(http:Caller caller, http:Request req) returns error? 
 }
 
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
 public function authorizeToken(http:Caller caller, http:Request req) returns error? {
     string auth = check req.getHeader("Authorization");
 

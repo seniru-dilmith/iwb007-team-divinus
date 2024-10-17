@@ -3,10 +3,9 @@ import server.ticket;
 import server.train;
 import server.admin;
 
+configurable int port = 8080;
 
-
-
-listener http:Listener httpListener = new(8080);
+listener http:Listener httpListener = new(port);
 
 public function main() returns error? {
     check httpListener.attach(ticket:ticketService,"/ticket");
