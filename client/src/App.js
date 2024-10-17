@@ -13,28 +13,35 @@ import AddTrain from './admin/pages/addTrain/AddTrain';
 import Schedule from './admin/pages/schedule/Schedule';
 import AuthProvider from './context/AuthContext';
 
+import Navbar from './general/components/common/navbar';
+import Footer from './general/components/common/Footer';
+
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} /> {/* Home page route */}
-          <Route path="/booking" element={<BookingPage />} /> {/* Booking page route */}
-          <Route path="/validate" element={<ValidatePage />} /> {/* Ticket Validation Route */}
-          <Route path="/trains" element={<ListOfAvailableTrains />} /> {/* Available Trains Route */}
-          <Route path="/payment" element={<PaymentPage />} /> {/* Payment page route */}
-          <Route path="/gallery" element={<GalleryPage />} /> {/* Gallery page route */} 
-          <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
+      <div className="main-container">
+        <Navbar/>
+        <div className="page-container">
+          <Routes>
+            <Route path="/" element={<Home />} /> {/* Home page route */}
+            <Route path="/booking" element={<BookingPage />} /> {/* Booking page route */}
+            <Route path="/validate" element={<ValidatePage />} /> {/* Ticket Validation Route */}
+            <Route path="/trains" element={<ListOfAvailableTrains />} /> {/* Available Trains Route */}
+            <Route path="/payment" element={<PaymentPage />} /> {/* Payment page route */}
+            <Route path="/gallery" element={<GalleryPage />} /> {/* Gallery page route */} 
+            <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
 
-          {/* Admin Routes */}
-          <Route path="/admin" element={<LoginPage />} /> {/* Admin Dashboard Route */}
-          <Route path="/admin/schedule*" element={<Schedule />} /> {/* Schedule a new train */}
-          <Route path="/admin/add-train" element={<AddTrain />} /> {/* Add a new train */}
+            {/* Admin Routes */}
+            <Route path="/admin" element={<LoginPage />} /> {/* Admin Dashboard Route */}
+            <Route path="/admin/schedule*" element={<Schedule />} /> {/* Schedule a new train */}
+            <Route path="/admin/add-train" element={<AddTrain />} /> {/* Add a new train */}
 
-          {/* Not found page */}
-          <Route path="*" element={<NotFound />} /> {/* 404 Route */}
-        </Routes>
-      </Router>
+            {/* Not found page */}
+            <Route path="*" element={<NotFound />} /> {/* 404 Route */}
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </AuthProvider>
   );
 }
