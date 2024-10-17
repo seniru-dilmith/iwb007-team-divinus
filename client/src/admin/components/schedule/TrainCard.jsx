@@ -1,10 +1,12 @@
-import React from 'react';
-import { FaClock, FaEye } from 'react-icons/fa';
-import '../../css/schedule/traincard.css';
+import React from "react";
+import { FaClock, FaEye, FaTrashAlt, FaEdit } from "react-icons/fa";
+import "../../css/schedule/traincard.css";
 
 const TrainCard = ({ train, onDelete, onEdit }) => {
   const handleDelete = () => {
-    onDelete(train.id);
+    if (window.confirm(`Are you sure you want to delete the train "${train.name}"?`)) {
+      onDelete(train.id);
+    }
   };
 
   const handleEdit = () => {
@@ -17,43 +19,48 @@ const TrainCard = ({ train, onDelete, onEdit }) => {
         <FaEye className="icon-eye" />
         <div className="train-details">
           <h5>{train.name}</h5>
-          <p>Name of the Train</p>
+          <p>{`Date: ${new Date(train.startDate).toLocaleDateString()}`}</p>
         </div>
         <div className="train-seats">
-          {/* Display class number and seat count */}
           <div className="seat-class">
             <span className="class-number">1</span>
-            <span className="seat-count">{train.seatsBooked.firstClass}/{train.seats.firstClass}</span>
+            <span className="seat-count">
+              {train.seatsBooked.firstClass}/{train.seats.firstClass}
+            </span>
           </div>
           <div className="seat-class">
             <span className="class-number">2</span>
-            <span className="seat-count">{train.seatsBooked.secondClass}/{train.seats.secondClass}</span>
+            <span className="seat-count">
+              {train.seatsBooked.secondClass}/{train.seats.secondClass}
+            </span>
           </div>
           <div className="seat-class">
             <span className="class-number">3</span>
-            <span className="seat-count">{train.seatsBooked.thirdClass}/{train.seats.thirdClass}</span>
+            <span className="seat-count">
+              {train.seatsBooked.thirdClass}/{train.seats.thirdClass}
+            </span>
           </div>
         </div>
       </div>
 
       <div className="train-time">
         <div className="arrives-departs">
-          <p>{train.arrivesAt}</p>
-          <span>Arrives</span>
-        </div>
-        <div className="arrives-departs">
-          <p>{train.departsAt}</p>
+          <p>{train.destinations[0].time}</p>
           <span>Departs</span>
         </div>
-        {train.routined ? <FaClock className="clock-icon" /> : <FaClock className="clock-icon" style={{ color: "gray" }}/>}
+        <div className="arrives-departs">
+          <p>{train.destinations[train.destinations.length - 1].time}</p>
+          <span>Arrives</span>
+        </div>
+        <FaClock className="clock-icon" style={{ color: train.isDaily ? "black" : "gray" }} />
       </div>
 
       <div className="train-actions">
         <button className="btn btn-edit" onClick={handleEdit}>
-          Edit
+          <FaEdit /> Edit
         </button>
         <button className="btn btn-delete" onClick={handleDelete}>
-          Delete
+          <FaTrashAlt /> Delete
         </button>
       </div>
     </div>
