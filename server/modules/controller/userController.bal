@@ -147,3 +147,31 @@ public function refreshToken(http:Caller caller, http:Request req) returns error
     return ();
 }
 
+public function userLogout(http:Caller caller, http:Request req) returns error? {
+    http:Cookie[] cookies = req.getCookies();
+
+    http:Cookie? refresh_token = ();
+
+    foreach var cookie in cookies {
+        if(cookie.name == "refresh_token"){
+            refresh_token = cookie;
+        }
+    }
+
+    if(refresh_token == ()){
+        http:Response res = new;
+        res.statusCode = 400;
+        res.setJsonPayload({"message": "Already logged out"});
+        check caller->respond(res);
+        return ();
+    }
+
+    http:Response res = new;
+    res.removeCookiesFromRemoteStore(refresh_token);
+    res.statusCode = 200;
+    res.setJsonPayload({"message": "Logged out"});
+    check caller->respond(res);
+    return ();
+}
+
+

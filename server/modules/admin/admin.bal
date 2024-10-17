@@ -15,6 +15,9 @@ public http:Service adminService = @http:ServiceConfig{
     }
 
     //need to implement logout
+    resource function post logout( http:Caller caller, http:Request req) returns error? {
+        return controller:userLogout(caller, req);
+    }
 
     resource function post register( http:Caller caller, @http:Payload model:User user) returns error? {
         error? err = controller:userRegister(caller, user);
