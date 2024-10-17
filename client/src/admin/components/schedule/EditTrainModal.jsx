@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { FaPlusCircle } from "react-icons/fa";
 import "../../css/schedule/editTrainModal.css";
-import useAxios from "../../../hooks/useAxios";
 import axios from "../../../api/axios";
 
 const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
@@ -14,7 +13,7 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
 
     axios.get('/train/stations')
       .then((response) => {
-        setAvailableStations(response.data.stations);
+        setAvailableStations(response.data.stations || []);
       })
       .catch((error) => {
         console.error("Error fetching stations:", error);
@@ -23,7 +22,7 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
 
   useEffect(() => {
     if (train) {
-      setEditedTrain({ ...train });
+      setEditedTrain(JSON.parse(JSON.stringify(train)));
     }
   }, [train]);
 
@@ -108,8 +107,8 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
                     }
                   >
                     <option value="">Select Station</option>
-                    {availableStations.map((station, i) => (
-                      <option key={i} value={station}>
+                    {availableStations.map((station) => (
+                      <option key={station} value={station}>
                         {station}
                       </option>
                     ))}

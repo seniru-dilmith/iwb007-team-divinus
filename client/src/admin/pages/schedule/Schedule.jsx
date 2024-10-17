@@ -52,17 +52,23 @@ const Schedule = () => {
   };
 
   const updateTrain = (updatedTrain) => {
+    const originalTrains = [...trains];
+  
+    setTrains((prevTrains) =>
+      prevTrains.map((train) =>
+        train._id["$oid"] === updatedTrain._id["$oid"] ? { ...updatedTrain } : train
+      )
+    );
+  
     axios.put(`/train/schedule/${updatedTrain._id["$oid"]}`, updatedTrain)
       .then((response) => {
         console.log(response);
       })
       .catch((error) => {
         console.error(error);
+        setTrains(originalTrains);
       });
-
-    setTrains((prevTrains) =>
-      prevTrains.map((train) => (train.id === updatedTrain.id ? updatedTrain : train))
-    );
+  
     setShowModal(false);
     setEditingTrain(null);
   };
