@@ -42,7 +42,7 @@ const BookingForm = () => {
     axios.post('/train/search', bookingData)
       .then((res) => {
         console.log('Trains:', res.data);
-        navigate('/trains', { state: { trains: res.data.trains, bookingData } });
+        navigate('/trains', { state: { trains: res.data, bookingData } });
       })
       .catch((err) => {
         console.error('Error fetching trains:', err);
@@ -73,31 +73,6 @@ const BookingForm = () => {
             </InputGroup>
           </Col>
 
-          {/* Arrival Field */}
-          <Col xs={12} md={4}>
-            <Form.Group controlId="formArrival" className="mb-3 d-flex align-items-center">
-              <FontAwesomeIcon icon={faTrain} size="2x" className="me-3" />
-              <Form.Label className="mb-0">Arrival</Form.Label>
-            </Form.Group>
-          </Col>
-          <Col xs={12} md={8}>
-            <InputGroup className="mb-3">
-              <Form.Select
-                value={arrival}
-                onChange={(e) => setArrival(e.target.value)}
-                required
-                className="rounded-pill dark-input"
-              >
-                <option value="">Pick Arrival</option>
-                {locations.map((location, index) => (
-                  <option key={index} value={location}>
-                    {location}
-                  </option>
-                ))}
-              </Form.Select>
-            </InputGroup>
-          </Col>
-
           {/* Departure Field */}
           <Col xs={12} md={4}>
             <Form.Group controlId="formDeparture" className="mb-3 d-flex align-items-center">
@@ -114,6 +89,31 @@ const BookingForm = () => {
                 className="rounded-pill dark-input"
               >
                 <option value="">Pick Departure</option>
+                {locations.map((location, index) => (
+                  <option key={index} value={location}>
+                    {location}
+                  </option>
+                ))}
+              </Form.Select>
+            </InputGroup>
+          </Col>
+
+          {/* Arrival Field */}
+          <Col xs={12} md={4}>
+            <Form.Group controlId="formArrival" className="mb-3 d-flex align-items-center">
+              <FontAwesomeIcon icon={faTrain} size="2x" className="me-3" />
+              <Form.Label className="mb-0">Arrival</Form.Label>
+            </Form.Group>
+          </Col>
+          <Col xs={12} md={8}>
+            <InputGroup className="mb-3">
+              <Form.Select
+                value={arrival}
+                onChange={(e) => setArrival(e.target.value)}
+                required
+                className="rounded-pill dark-input"
+              >
+                <option value="">Pick Arrival</option>
                 {locations.map((location, index) => (
                   <option key={index} value={location}>
                     {location}

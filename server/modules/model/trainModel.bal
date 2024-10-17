@@ -183,7 +183,7 @@ public function filterTrains(TrainFilter filter) returns Train[]|error {
 
             if(arrivalTime is error || departureTime is error){
                 return;
-            } else if time:isTimeAfter(departureTime, arrivalTime){
+            } else if time:isTimeAfter(arrivalTime, departureTime){
                 return trains.push(train);
             }
         }

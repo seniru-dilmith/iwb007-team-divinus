@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import TrainCard from '../components/listOfTrains/TrainCard';
@@ -7,6 +7,10 @@ import Footer from '../components/common/Footer';
 import '../css/listOfTrains/available-trains.css';
 
 const ListOfAvailableTrains = () => {
+
+  
+
+
   const trains = [
     {
       id: 1,
@@ -51,6 +55,12 @@ const ListOfAvailableTrains = () => {
   // Get trains and booking data from the previous page
   const location = useLocation();
   const bookingData = location.state?.bookingData || {};
+  const trainData = location.state?.trains || {};
+
+  useEffect(() => {
+    console.log(trainData);
+    console.log(bookingData);
+  },[trainData]);
 
   return (
     <>
@@ -79,7 +89,7 @@ const ListOfAvailableTrains = () => {
         {/* Train List */}
         <Row className="train-list">
           {trains.length > 0 ? (
-            trains.map((train) => (
+            trainData.map((train) => (
               <TrainCard key={train.id} train={train} bookingData={bookingData} />
             ))
           ) : (
