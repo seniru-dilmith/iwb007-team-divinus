@@ -8,6 +8,7 @@ import PaymentPage from '../general/pages/PaymentPage';
 import GalleryPage from '../general/pages/GalleryPage';
 import ContactUs from '../general/pages/ContactUs';
 import NotFound from '../general/pages/NotFoundPage';
+import CardPaymentPage from '../general/pages/CardPaymentPage';
 import LoginPage from '../admin/pages/login/LoginPage';
 import AddTrain from '../admin/pages/addTrain/AddTrain';
 import Schedule from '../admin/pages/schedule/Schedule';
@@ -35,6 +36,7 @@ function AppRoutes() {
             <Route path="/payment" element={<PaymentPage />} /> {/* Payment page route */}
             <Route path="/gallery" element={<GalleryPage />} /> {/* Gallery page route */} 
             <Route path="/contact" element={<ContactUs />} /> {/* Contact page route */}
+            <Route path="/card-payment" element={<CardPaymentPage />} /> {/* Card payment page route */}
 
             {/* Admin Routes */}
             <Route path="/admin" element={isAuthenticated ? <Navigate to={'/admin/schedule'} /> : <LoginPage />} /> {/* Admin Dashboard Route */}

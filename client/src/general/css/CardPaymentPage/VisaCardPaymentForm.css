@@ -1,0 +1,71 @@
+/* VisaCardPaymentForm.css */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.form-control {
+    border-radius: 0.375rem; /* Rounded input fields */
+}
+
+.btn {
+    font-size: 1rem;
+    padding: 0.75rem;
+}
+
+.keyData{
+    color: #505050;
+    text-align: left;
+}
+
+.valueData{
+    font-weight: bold;
+    font-size: 16px;
+    color: #171717;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.dataset-wrapper{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 0 auto;
+}
+
+.sub-title{
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: black;
+    margin: 15px 0 6px 0;
+}
+
+.res-msg{
+    color: rgb(0, 177, 0);
+    font-size: 24px;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+
+.keyvalue-wrapper{
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .valueData{
+        margin-left: 20px;
+    }
+
+    .keyvalue-wrapper{
+        margin-bottom: 10px;
+    }
+}
