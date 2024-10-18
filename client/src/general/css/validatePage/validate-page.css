@@ -1,162 +1,57 @@
 /* Container for the validation page */
 .validate-page-container {
-    display: flex;
-    align-items: center;
     min-height: 100vh;
+    padding: 5%;
+    margin: auto;
     background: linear-gradient(to right, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%), 
                 url('../../assets/validatePage/back-image.jpg');
     background-size: cover;
     background-position: center right;
-    padding: 50px;
 }
 
-/* Adjusting form position */
+/* Ticket Form Column */
 .ticket-form-col {
     background: rgba(255, 255, 255, 0.9);
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 800px;
-    margin-left: 20%; 
-    min-height: 500px; 
+    margin: 20px; 
+    flex: 1; 
+}
+
+/* Ticket Details Column */
+.ticket-details-col {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 100%; 
+    margin: 20px;
+    flex: 1; 
 }
 
 /* Title styling */
 .validate-title {
     font-size: 2.5rem;
     letter-spacing: 0.15rem;
-    text-align: center;
     font-weight: bold;
-    width: 100%;
-    white-space: nowrap;
 }
 
-/* Content inside the form section */
-.ticket-form-content {
-    width: 100%;
-}
-
-/* Form input styles */
-.input-box {
-    background-color: #f1f3f5;
-    color: #495057;
-    border: none;
-    padding: 15px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-size: 1.8rem;
-}
-
-.input-box::placeholder {
-    color: #6c757d;
-    font-size: 1.2rem;
-}
-
-/* Validate Button Styling */
-.validate-btn {
-    background-color: #0056b3;
-    color: #fff;
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-    border: none;
-}
-
-.validate-btn:hover {
-    background-color: #003d82;
-}
-
-/* Validation Result Styling */
-.validation-result {
-    font-size: 1.4rem; /* Adjusted font size */
-    padding: 30px;
-    border-radius: 10px;
-}
-
-/* --- Responsive Styling for Smaller Screens --- */
-
-/* For medium-sized screens (tablets, smaller laptops) */
+/* Responsive Adjustments */
 @media (max-width: 992px) {
-    .ticket-form-col {
-        max-width: 90%;
-        margin-left: 5%;
-        min-height: auto; /* Allow height to adjust */
+    .ticket-form-col, .ticket-details-col {
+        flex: 1 1 100%; 
+        margin: 10px 0;
     }
 
-    .validate-title {
-        font-size: 2rem;
-    }
-
-    .input-box {
-        font-size: 1.5rem; /* Slightly smaller */
-    }
-
-    .validate-btn {
-        font-size: 1.3rem;
-        padding: 10px 15px;
-    }
-}
-
-/* For small screens (mobile phones) */
-@media (max-width: 768px) {
     .validate-page-container {
         padding: 20px;
-        background: rgba(255, 255, 255, 0.85), 
-                    url('../../assets/validatePage/back-image.jpg'); /* Remove gradient and add opacity */
-        background-size: cover;
-        background-position: center right;
-        justify-content: center; /* Center the form horizontally */
-    }
-
-    .ticket-form-col {
-        max-width: 100%; /* Take the full width of the screen */
-        margin: 0 auto; /* Center the form */
-        padding: 20px; /* Less padding for mobile */
-    }
-
-    .validate-title {
-        font-size: 1.8rem;
-        letter-spacing: 0.1rem;
-    }
-
-    .input-box {
-        font-size: 1.4rem; /* Even smaller for mobile */
-        padding: 10px;
-    }
-
-    .validate-btn {
-        font-size: 1.2rem;
-        padding: 10px;
     }
 }
 
-/* Extra small screens */
-@media (max-width: 576px) {
-    .validate-page-container {
-        padding: 10px;
-        background: rgba(255, 255, 255, 0.95), 
-                    url('../../assets/validatePage/back-image.jpg'); /* Increase opacity */
-        background-size: cover;
-        background-position: center;
-        justify-content: center; /* Center the form horizontally */
-    }
-
-    .ticket-form-col {
-        max-width: 100%; /* Full width on small screens */
-        margin: 0 auto; /* Center the form */
-    }
-
+@media (max-width: 768px) {
     .validate-title {
-        font-size: 1.6rem;
-    }
-
-    .input-box {
-        font-size: 1.2rem;
-        padding: 8px;
-    }
-
-    .validate-btn {
-        font-size: 1.1rem;
-        padding: 8px;
+        font-size: 2rem;
     }
 }
