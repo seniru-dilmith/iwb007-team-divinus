@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import axios from "axios";
-import TicketValidationForm from "../components/validatePage/TicketValidationForm";
-import TicketValidationResult from "../components/validatePage/TicketValidationResult";
-
 import "../css/validatePage/validate-page.css";
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import TicketValidationForm from "../components/validatePage/TicketValidationForm";
 import TicketValidationResult from "../components/validatePage/TicketValidationResult";
-import Navbar from "../components/common/navbar";
-import Footer from "../components/common/Footer";
 import KeyValueSet from "../components/validatePage/KeyValueSet";
 import "../css/validatePage/validate-page.css";
 import axios from "../../api/axios";
@@ -20,6 +12,10 @@ const ValidatePage = () => {
   const [ticketNumber, setTicketNumber] = useState("");
   const [isValidTicket, setIsValidTicket] = useState(null);
   const [ticketData, setTicketData] = useState(null);
+  const [times, setTimes] = useState({
+    start: "",
+    end: ""
+  })
   const { addWaiter, removeWaiter } = useWaiter();
 
   const handleValidation = async (e) => {
@@ -53,6 +49,11 @@ const ValidatePage = () => {
           },
         });
 
+        setTimes({
+          start: arrivalTime(train, ticket.details.startStation),
+          end: arrivalTime(train, ticket.details.endStation),
+        })
+
         if (ticket.status !== "active") {
           setIsValidTicket(false);
         } else {
@@ -66,15 +67,20 @@ const ValidatePage = () => {
       .finally(() => {
         removeWaiter("Validating ticket...");
       });
+
+      const arrivalTime = (trainData, station) => {
+        const id = trainData.destinations.findIndex((stationData, index, array) => {
+          return (station === stationData.station)
+        })
+        return trainData.destinations[id].time
+      }
   };
 
   return (
     <>
-      <Container fluid className="validate-page-container">
-        <Row>
+      <div className={`validate-page-container ${(isValidTicket && ticketData) ? 'two-cell' : 'one-cell'}`}>
           {/* Left Column: Ticket Validation Form */}
-
-          <Col md={6} lg={6} className="ticket-form-col">
+          <div className="ticket-form-col">
             <div className="ticket-form-content">
               <h1 className="validate-title mb-4 text-center">
                 VALIDATE YOUR TICKET
@@ -90,14 +96,12 @@ const ValidatePage = () => {
                 </div>
               )}
             </div>
-          </Col>
+          </div>
 
           {/* Right Column: Ticket Details */}
           {isValidTicket && ticketData && (
-            <Col
-              md={{ span: 5, offset: 1 }}
-              lg={{ span: 4, offset: 2 }}
-              className="ticket-details-col d-md-block"
+            <div
+              className="ticket-details-col"
             >
               <div className="mt-5 border rounded p-4">
                 <h4>Ticket Details</h4>
@@ -107,13 +111,13 @@ const ValidatePage = () => {
                 <KeyValueSet keyData="Date" valueData={ticketData.date} />
                 <KeyValueSet
                   keyData="Departure"
-                  valueData={ticketData.departureStation}
+                  valueData={ticketData.departureStation+" @ "+times.start}
                 />
                 <KeyValueSet
                   keyData="Arrival"
-                  valueData={ticketData.arrivalStation}
+                  valueData={ticketData.arrivalStation+" @ "+times.end}
                 />
-                <h5 className="mt-3">Reserved Seats</h5>
+                <h5 className="mt-4 text-center">Reserved Seats</h5>
                 <KeyValueSet
                   keyData="First Class"
                   valueData={ticketData.seatsQuantity.firstClass}
@@ -127,10 +131,9 @@ const ValidatePage = () => {
                   valueData={ticketData.seatsQuantity.thirdClass}
                 />
               </div>
-            </Col>
+            </div>
           )}
-        </Row>
-      </Container>
+        </div>
     </>
   );
 };

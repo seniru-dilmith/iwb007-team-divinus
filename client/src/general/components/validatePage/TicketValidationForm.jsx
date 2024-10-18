@@ -3,7 +3,7 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 
 const TicketValidationForm = ({ ticketNumber, setTicketNumber, handleValidation }) => {
   return (
-    <Form onSubmit={handleValidation} className="validate-form shadow-lg rounded p-4" style={{ width: "40%", margin: "auto"}}>
+    <Form onSubmit={handleValidation} className="validate-form shadow-lg rounded p-4">
       <Form.Group controlId="formTicketNumber" className="mb-3">
         <Form.Label className="fw-bold">Ticket Number</Form.Label>
         <InputGroup>
