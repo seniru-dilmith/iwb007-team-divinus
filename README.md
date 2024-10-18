@@ -43,7 +43,7 @@ By default, the **main** branch will be cloned.
    ```bash
    cd client
    ```
-2. Follow the steps in [Backend Readme section(i)](/client/README.md) to set up the frontend.
+2. Follow the steps in [Feontend Readme section(i)](/client/README.md) to set up the frontend.
 
 ### Backend Setup
 
