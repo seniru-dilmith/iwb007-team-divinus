@@ -2,7 +2,6 @@ import ballerina/http;
 import server.model;
 import ballerina/crypto;
 import ballerina/jwt;
-import ballerina/io;
 
 configurable string access_token_secret = ? ;
 configurable string refresh_token_secret = ?;
@@ -175,7 +174,6 @@ public function userLogout(http:Caller caller, http:Request req) returns error? 
     foreach var cookie in cookies {
         if(cookie.name == "refresh_token"){
             refresh_token = cookie;
-            io:println("refresh_token: " + cookie.value);
         }
     }
 
