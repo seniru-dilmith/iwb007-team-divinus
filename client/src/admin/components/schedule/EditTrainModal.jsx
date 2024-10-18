@@ -8,13 +8,15 @@ import useWaiter from "../../../hooks/useWaiter";
 const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
   const [editedTrain, setEditedTrain] = useState(null);
   const [availableStations, setAvailableStations] = useState([]);
-  const {addWaiter, removeWaiter} = useWaiter();
+  const [date, setDate] = useState(train.startDate);
+  const { addWaiter, removeWaiter } = useWaiter();
 
   useEffect(() => {
-    if(!axios) return;
-    addWaiter('Fetching stations in edit train modal...');
+    if (!axios) return;
+    addWaiter("Fetching stations in edit train modal...");
 
-    axios.get('/train/stations')
+    axios
+      .get("/train/stations")
       .then((response) => {
         setAvailableStations(response.data.stations || []);
       })
@@ -22,7 +24,7 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
         console.error("Error fetching stations:", error);
       })
       .finally(() => {
-        removeWaiter('Fetching stations in edit train modal...');
+        removeWaiter("Fetching stations in edit train modal...");
       });
   }, []);
 
@@ -78,6 +80,12 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
     }
   };
 
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setDate(selectedDate);
+    setEditedTrain((prev) => ({ ...prev, startDate: selectedDate }));
+  };
+
   const handleSubmit = () => {
     updateTrain(editedTrain);
     handleClose();
@@ -90,15 +98,31 @@ const EditTrainModal = ({ show, handleClose, train, updateTrain }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group controlId="editTrainName">
-            <Form.Label>Train Name</Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              value={editedTrain.name}
-              onChange={handleInputChange}
-            />
-          </Form.Group>
+          <Row>
+            <Col xs={12} md={8}>
+              <Form.Group controlId="editTrainName">
+                <Form.Label>Train Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  style={{ height: '3rem' }}
+                  value={editedTrain.name}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={4}>
+              <Form.Group controlId="editTrainDate">
+                <Form.Label>Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={date}
+                  style={{ height: '3rem' }}
+                  onChange={handleDateChange}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
           <h5 className="mt-4">Destinations</h5>
           {editedTrain.destinations.map((destination, index) => (
