@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../css/schedule/schedule.css';
 import { Container } from 'react-bootstrap';
 import useAxios from '../../../hooks/useAxios';
+import useWaiter from '../../../hooks/useWaiter';
 
 const StationControl = () => {
 
@@ -9,6 +10,7 @@ const StationControl = () => {
     const [newStation, setNewStation] = useState('');
     const [stationToRemove, setStationToRemove] = useState('');
     const axios = useAxios();
+    const { addWaiter, removeWaiter } = useWaiter();
 
  // add a new station
  const handleAddStation = () => {
@@ -24,6 +26,7 @@ const StationControl = () => {
     }
 
     if(!axios) return;
+    addWaiter('Adding new station...');
 
     axios.post('/train/stations', { station: newStations })
       .then((response) => {
@@ -31,12 +34,19 @@ const StationControl = () => {
         setStations((prevStations) => [...prevStations, ...newStations]);
         setNewStation('');
       })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        removeWaiter('Adding new station...');
+      });
   } else alert('Please enter a station name!');
 
 };
 
   useEffect(() => {
     if(!axios) return;
+    addWaiter('Fetching stations in station control...');
 
     axios.get('/train/stations')
       .then((response) => {
@@ -44,6 +54,9 @@ const StationControl = () => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        removeWaiter('Fetching stations in station control...');
       });
   }, []);
 
@@ -58,6 +71,7 @@ const StationControl = () => {
     const confirmDelete = window.confirm(`Are you sure you want to remove "${stationToRemove}"?`);
       if (confirmDelete) {
         if(!axios) return;
+        addWaiter('Removing station...');
 
         axios.delete(`/train/stations/${stationToRemove}`)
           .then((response) => {
@@ -69,6 +83,9 @@ const StationControl = () => {
           })
           .catch((error) => {
             console.error(error);
+          })
+          .finally(() => {
+            removeWaiter('Removing station...');
           });
     }
   };

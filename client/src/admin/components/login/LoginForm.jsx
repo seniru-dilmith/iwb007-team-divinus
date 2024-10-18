@@ -3,16 +3,18 @@ import { Form, Button } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
 import { axiosWithCredential } from '../../../api/axios';
 import useAuth from '../../../hooks/useAuth';
+import useWaiter from '../../../hooks/useWaiter';
 
 const AdminLoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {setAccessToken, setIsAuthenticated} = useAuth();
-
+  const {addWaiter, removeWaiter} = useWaiter();
 
 
   const handleLogin = (e) => {
     e.preventDefault();
+    addWaiter('Logging in...');
     // Handle login logic
     axiosWithCredential.post('/admin/login', { email, password })
       .then((res) => {
@@ -22,6 +24,9 @@ const AdminLoginForm = () => {
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        removeWaiter('Logging in...');
+      });
 
     console.log('Logging in with:', { email, password });
   };

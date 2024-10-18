@@ -7,7 +7,7 @@ const LoadingSpinner = () => {
         return (
             <div className={`${isWaiting ? 'd-block' : 'd-none'} position-fixed w-100 h-100 d-flex align-items-center justify-content-center`} style={{ top: 0, left: 0, zIndex: 100 }}>
                 <div className="position-relative w-100 h-100 d-flex align-items-center justify-content-center">
-                    <div className="p-4 d-flex flex-column gap-3 align-items-center justify-content-start rounded">
+                    <div className="p-4 d-flex flex-column gap-3 align-items-center justify-content-start rounded" style={{zIndex:100}}>
                         <svg width="75" height="75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25" />
                             <path fill='#6750A4' d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z">
@@ -15,7 +15,7 @@ const LoadingSpinner = () => {
                             </path>
                         </svg>
                     </div>
-                    <div className="position-absolute w-100 h-100 bg-white" style={{ opacity: 0.5, zIndex: 0 }}></div>
+                    <div className="position-absolute w-100 h-100 bg-white" style={{ opacity: 0.7, zIndex: 0 }}></div>
                 </div>
             </div>
         );
