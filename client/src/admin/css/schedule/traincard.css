@@ -37,6 +37,7 @@
 
 .train-seats {
     display: flex;
+    min-width: 250px;
     gap: 10px;
 }
 

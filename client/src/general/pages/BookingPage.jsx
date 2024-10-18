@@ -1,8 +1,12 @@
 import React from 'react';
+import { useState } from "range-parser";
 import HeroSection from '../components/bookingPage/HeroSection';
 
 
 const BookingPage = () => {
+
+  
+
   return (
     <div>
       <div className="booking-page">

@@ -2,21 +2,23 @@ import { axiosWithCredential } from "../api/axios"
 import useAuth from "./useAuth"
 
 const useRefreshToken = () => {
-    const { setAccessToken } = useAuth();
+    const { setAccessToken, setIsAuthenticated } = useAuth();
 
     const refreshToken = () => {
         let accessToken;
 
         axiosWithCredential.post('/admin/refreshToken')
             .then((res) => {
-                accessToken = res.data.accessToken;
-                setAccessToken(res.data.accessToken);
+                setAccessToken(res.data.access_token);
+                accessToken = res.data.access_token;
+                setIsAuthenticated(true);
             })
             .catch((err) => {
                 console.log(err);
                 setAccessToken(null);
+                setIsAuthenticated(false);
             })
-        
+            
         return accessToken;
     }
     return refreshToken;

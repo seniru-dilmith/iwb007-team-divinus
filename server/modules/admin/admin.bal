@@ -2,23 +2,31 @@ import ballerina/http;
 import server.model;
 import server.controller;
 
-public http:Service adminService = service object {
-
-    @http:ResourceConfig {
-        cors: {
-            allowOrigins: ["*"],
-            allowCredentials: true
-        }
+public http:Service adminService = @http:ServiceConfig{
+    cors: {
+        allowOrigins: ["*"],
+        allowCredentials: true
     }
-    
+} service object {
     resource function post login( http:Caller caller, @http:Payload model:User user) returns error? {
         error? err = controller:userLogin(caller, user);
 
         return err;
     }
 
+    //need to implement logout
+    resource function post logout( http:Caller caller, http:Request req) returns error? {
+        return controller:userLogout(caller, req);
+    }
+
     resource function post register( http:Caller caller, @http:Payload model:User user) returns error? {
         error? err = controller:userRegister(caller, user);
+
+        return err;
+    }
+
+    resource function post refreshToken( http:Caller caller, http:Request req) returns error? {
+        error? err = controller:refreshToken(caller, req);
 
         return err;
     }

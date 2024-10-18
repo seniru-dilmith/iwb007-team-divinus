@@ -11,6 +11,14 @@ const TrainCard = ({ train, bookingData }) => {
     setShowModal(true);  // Show the modal
   };
 
+  //Function to get the Arrival time of a specific station
+  const arrivalTime = (station) => {
+    const id = train.destinations.findIndex((stationData, index, array) => {
+      return (station === stationData.station)
+    })
+    return train.destinations[id].time
+  }
+
   // Function to handle closing the modal
   const handleCloseModal = () => {
     setShowModal(false);  // Hide the modal
@@ -45,17 +53,18 @@ const TrainCard = ({ train, bookingData }) => {
               <h5 className="train-name">{train.name}</h5>
             </div>
             <div className="train-seats">
-              <Button variant="warning" className="seat-btn mx-1">1 ({train.seatAvailability.firstClass})</Button>
-              <Button variant="warning" className="seat-btn mx-1">2 ({train.seatAvailability.secondClass})</Button>
-              <Button variant="warning" className="seat-btn mx-1">3 ({train.seatAvailability.thirdClass})</Button>
+              <Button variant="warning" className="seat-btn mx-1">1 ({train.seats.firstClass.availableSeats})</Button>
+              <Button variant="warning" className="seat-btn mx-1">2 ({train.seats.secondClass.availableSeats})</Button>
+              <Button variant="warning" className="seat-btn mx-1">3 ({train.seats.thirdClass.availableSeats})</Button>
             </div>
           </Col>
 
           {/* Arrival and Departure Time */}
           <Col xs={12} md={3} className="text-center">
             <div className="train-time">
-              <h6>Arrival: {train.arrivesAt}</h6>
-              <h6>Departure: {train.departsAt}</h6>
+              <h6>Departure: {arrivalTime(bookingData.departureStation)}</h6>
+              <h6>Arrival: {arrivalTime(bookingData.arrivalStation)}</h6>
+              
             </div>
           </Col>
 
@@ -90,15 +99,13 @@ const TrainCard = ({ train, bookingData }) => {
               <tr>
                 <th>Station</th>
                 <th>Arrival</th>
-                <th>Departure</th>
               </tr>
             </thead>
             <tbody>
-              {train.stations.map((station, index) => (
+              {train.destinations.map((station, index) => (
                 <tr key={index}>
                   <td>{station.station}</td>
-                  <td>{station.arrival}</td>
-                  <td>{station.departure}</td>
+                  <td>{station.time}</td>
                 </tr>
               ))}
             </tbody>

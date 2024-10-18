@@ -6,7 +6,7 @@ import ballerina/jwt;
 configurable string access_token_secret = ? ;
 configurable string refresh_token_secret = ?;
 
-function generateJWT(map<json> payload, string secret) returns string|error {
+function generateJWT(map<json> payload, string secret, decimal expTime) returns string|error {
     
     jwt:IssuerConfig issuerConfig = {
         issuer: "bookMyTrain",
@@ -14,7 +14,7 @@ function generateJWT(map<json> payload, string secret) returns string|error {
             algorithm: "HS256",
             config: secret
             },
-        expTime: 3600,
+        expTime: expTime,
         customClaims: payload
     };
 
@@ -45,6 +45,11 @@ function encryptPassword(string password) returns string {
     return hashedPassword;
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + user - user to login
+# + return - returns an error if there is an error in the model
 public function userLogin(http:Caller caller, model:User user) returns error? {
 
     http:Response res = new;
@@ -65,9 +70,9 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
         return ();
     }
 
-    string access_token = check generateJWT({"email": dbUser.email}, access_token_secret);
-    string refresh_token = check generateJWT({"email": dbUser.email}, access_token_secret);
-    http:Cookie tokenCookie = new("token", refresh_token, httpOnly = true, secure = true, maxAge = 3600);
+    string access_token = check generateJWT({"email": dbUser.email}, access_token_secret, 600);
+    string refresh_token = check generateJWT({"email": dbUser.email}, refresh_token_secret, 3600);
+    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, maxAge = 3600);
 
     res.statusCode = 200;
     res.addCookie(tokenCookie);
@@ -78,6 +83,11 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + user - user to register
+# + return - returns an error if there is an error in the model
 public function userRegister(http:Caller caller, model:User user) returns error? {
 
     if(!(user.name is string)){
@@ -107,6 +117,113 @@ public function userRegister(http:Caller caller, model:User user) returns error?
     res.setJsonPayload({"message": "User created"});
 
     check caller->respond(res);
+
+    return ();
+}
+
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
+public function refreshToken(http:Caller caller, http:Request req) returns error? {
+    http:Cookie[] cookies = req.getCookies();
+
+    string? old_refresh_token = ();
+
+    foreach var cookie in cookies {
+        if(cookie.name == "refresh_token"){
+            old_refresh_token = cookie.value;
+        }
+    }
+
+    if(old_refresh_token == ()){
+        http:Response res = new;
+        res.statusCode = 400;
+        res.setJsonPayload({"message": "Refresh token not found"});
+        check caller->respond(res);
+        return ();
+    }
+
+    jwt:Payload payload = check validateJWT(old_refresh_token, refresh_token_secret);
+
+    string email = payload.get("email").toString();
+
+    string access_token = check generateJWT({"email": email}, access_token_secret, 600);
+    string refresh_token = check generateJWT({"email": email}, refresh_token_secret, 3600);
+
+    http:Response res = new;
+    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, maxAge = 3600);
+    res.statusCode = 200;
+    res.addCookie(tokenCookie);
+    res.setJsonPayload({"message": "Token refreshed", "access_token" : access_token });
+    check caller->respond(res);
+    return ();
+}
+
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
+public function userLogout(http:Caller caller, http:Request req) returns error? {
+    http:Cookie[] cookies = req.getCookies();
+
+    http:Cookie? refresh_token = ();
+
+    foreach var cookie in cookies {
+        if(cookie.name == "refresh_token"){
+            refresh_token = cookie;
+        }
+    }
+
+    if(refresh_token == ()){
+        http:Response res = new;
+        res.statusCode = 400;
+        res.setJsonPayload({"message": "Already logged out"});
+        check caller->respond(res);
+        return ();
+    }
+
+    http:Response res = new;
+    res.removeCookiesFromRemoteStore(refresh_token);
+    res.statusCode = 200;
+    res.setJsonPayload({"message": "Logged out"});
+    check caller->respond(res);
+    return ();
+}
+
+
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
+public function authorizeToken(http:Caller caller, http:Request req) returns error? {
+    string auth = check req.getHeader("Authorization");
+
+    string:RegExp r = re ` `;
+    string[] splitedAuth = r.split(auth);
+
+    if splitedAuth.length() != 2 {
+        http:Response res = new;
+        res.statusCode = 401;
+        res.setJsonPayload({"message": "Unauthorized"});
+        check caller->respond(res);
+        return error("Unauthorized");
+    }
+
+    string access_token = splitedAuth[1];
+
+    jwt:Payload|error payload= check validateJWT(access_token, access_token_secret);
+
+    if payload is error {
+        http:Response res = new;
+        res.statusCode = 403;
+        res.setJsonPayload({"message": "Forbidden"});
+        check caller->respond(res);
+        return error("Forbidden");
+    }
 
     return ();
 }

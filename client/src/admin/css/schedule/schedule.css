@@ -180,6 +180,19 @@
     background-color: #376dbb;
 }
 
+.custom-gap {
+    gap: 0px !important;
+}
+
+.station-controls {
+    margin-bottom: 0px !important;
+    padding: 0;
+}
+
+.station-add-remove {
+    width: 40%;
+}   
+
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .train-card {
@@ -242,5 +255,12 @@
 
     .clock-icon {
         font-size: 1.5rem;
+    }
+}
+
+/* Responsive design for a bit larger screens */
+@media (max-width:1200px) {
+    .station-add-remove {
+        width: 100%;
     }
 }

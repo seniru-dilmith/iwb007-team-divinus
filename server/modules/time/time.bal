@@ -27,16 +27,30 @@ public function dateToString(Date date) returns string {
     return string:concat(date.year.toString(), "-", date.month.toString(), "-", date.day.toString());
 }
 
-public function today() returns Date|error {
+public function today() returns Date {
     time:Utc timeNow = time:utcNow();
+    
+    time:Civil timeCivil = time:utcToCivil(timeNow);
 
-    string timeNowString = timeNow.toString();
-
-    string:RegExp r = re`T`;
-    string[] timeNowArray = r.split(timeNowString);
-    Date dateRecord = check stringToDate(timeNowArray[0]);
+    Date dateRecord = {
+        year: timeCivil.year,
+        month: timeCivil.month,
+        day: timeCivil.day
+    };
 
     return dateRecord;    
+}
+
+public function timeNow() returns Time {
+    time:Utc timeNow = time:utcNow();
+    time:Civil timeCivil = time:utcToCivil(timeNow);
+
+    Time timeRecord = {
+        hours: timeCivil.hour,
+        minutes: timeCivil.minute
+    };
+
+    return timeRecord;
 }
 
 public function isDateAfter(Date date1, Date date2) returns boolean {

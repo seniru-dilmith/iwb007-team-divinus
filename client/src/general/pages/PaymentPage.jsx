@@ -9,14 +9,10 @@ const PaymentPage = () => {
   const train = location.state?.train || {};  // Get the selected train data
   const bookingData = location.state?.bookingData || {};  // Get the passed booking data
 
-  const handlePayment = () => {
-    alert('Payment Successful');
-  };
-
   return (
     <div className="payment-page-container">
       {/* Only include TrainDetails within TicketForm */}
-      <TicketForm handlePayment={handlePayment} train={train} bookingData={bookingData} />
+      <TicketForm train={train} bookingData={bookingData} />
     </div>
   );
 };
