@@ -1,19 +1,59 @@
-import React, { useState } from 'react';
-import { Form, Button, Row, Col, InputGroup, FormControl } from 'react-bootstrap';
-import '../../css/paymentPage/payment-page.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
+import "../../css/paymentPage/payment-page.css";
 
-const TicketForm = ({ handlePayment }) => {
-  const [quantity1, setQuantity1] = useState(0);  // First Class tickets
-  const [quantity2, setQuantity2] = useState(0);  // Second Class tickets
-  const [quantity3, setQuantity3] = useState(0);  // Third Class tickets
+const TicketForm = (props) => {
+  const [quantity1, setQuantity1] = useState(0); // First Class tickets
+  const [quantity2, setQuantity2] = useState(0); // Second Class tickets
+  const [quantity3, setQuantity3] = useState(0); // Third Class tickets
+  const [personData, setPersonData] = useState({
+    name: "",
+    nic: "",
+    email: "",
+    phone: "",
+  });
 
   const priceFirstClass = 1000;
   const priceSecondClass = 1200;
   const priceThirdClass = 1500;
 
+  const navigate = useNavigate();
+
+  const ticketData = {
+    name: personData.name,
+    nic: personData.nic,
+    email: personData.email,
+    phone: personData.phone,
+    startStation: props.bookingData.departureStation,
+    endStation: props.bookingData.arrivalStation,
+    seatsQuantity: {
+      firstClass: quantity1,
+      secondClass: quantity2,
+      thirdClass: quantity3
+    },
+    trainScheduleId: props.train._id.$oid,
+  };
+
+  const handleFormChange = (e) => {
+    setPersonData({
+      ...personData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   // Calculate the total price
   const totalPrice =
-    quantity1 * priceFirstClass + quantity2 * priceSecondClass + quantity3 * priceThirdClass;
+    quantity1 * priceFirstClass +
+    quantity2 * priceSecondClass +
+    quantity3 * priceThirdClass;
 
   return (
     <div className="ticket-form-container elegant-form mx-auto shadow-lg p-5 rounded">
@@ -30,7 +70,14 @@ const TicketForm = ({ handlePayment }) => {
             Name
           </Form.Label>
           <Col sm={8}>
-            <FormControl type="text" placeholder="Enter your name" />
+            <input
+              className="form-control"
+              name="name"
+              type="text"
+              placeholder="Enter your name"
+              value={ticketData.name}
+              onChange={handleFormChange}
+            />
           </Col>
         </Form.Group>
 
@@ -39,7 +86,14 @@ const TicketForm = ({ handlePayment }) => {
             ID Number
           </Form.Label>
           <Col sm={8}>
-            <FormControl type="text" placeholder="Enter ID number" />
+            <input
+              className="form-control"
+              name="nic"
+              type="text"
+              placeholder="Enter ID number"
+              value={ticketData.nic}
+              onChange={handleFormChange}
+            />
           </Col>
         </Form.Group>
 
@@ -48,7 +102,14 @@ const TicketForm = ({ handlePayment }) => {
             E mail
           </Form.Label>
           <Col sm={8}>
-            <FormControl type="email" placeholder="Enter email" />
+            <input
+              className="form-control"
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              value={ticketData.email}
+              onChange={handleFormChange}
+            />
           </Col>
         </Form.Group>
 
@@ -57,12 +118,23 @@ const TicketForm = ({ handlePayment }) => {
             Phone
           </Form.Label>
           <Col sm={8}>
-            <FormControl type="text" placeholder="Enter phone number" />
+            <input
+              className="form-control"
+              name="phone"
+              type="text"
+              placeholder="Enter phone number"
+              value={ticketData.phone}
+              onChange={handleFormChange}
+            />
           </Col>
         </Form.Group>
 
         {/* Ticket Selection */}
-        <Form.Group as={Row} controlId="formQuantity" className="mb-4 text-center">
+        <Form.Group
+          as={Row}
+          controlId="formQuantity"
+          className="mb-4 text-center"
+        >
           <Form.Label column sm={4}>
             Quantity
           </Form.Label>
@@ -76,10 +148,14 @@ const TicketForm = ({ handlePayment }) => {
                 >
                   -
                 </Button>
-                <FormControl className="text-center" value={quantity1} readOnly />
+                <FormControl
+                  className="text-center"
+                  value={quantity1}
+                  readOnly
+                />
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setQuantity1(quantity1 + 1)}
+                  onClick={() => setQuantity1(Math.min(props.train.seats.firstClass.availableSeats, quantity1 + 1))}
                 >
                   +
                 </Button>
@@ -95,10 +171,14 @@ const TicketForm = ({ handlePayment }) => {
                 >
                   -
                 </Button>
-                <FormControl className="text-center" value={quantity2} readOnly />
+                <FormControl
+                  className="text-center"
+                  value={quantity2}
+                  readOnly
+                />
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setQuantity2(quantity2 + 1)}
+                  onClick={() => setQuantity2(Math.min(props.train.seats.secondClass.availableSeats, quantity2 + 1))}
                 >
                   +
                 </Button>
@@ -114,10 +194,14 @@ const TicketForm = ({ handlePayment }) => {
                 >
                   -
                 </Button>
-                <FormControl className="text-center" value={quantity3} readOnly />
+                <FormControl
+                  className="text-center"
+                  value={quantity3}
+                  readOnly
+                />
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setQuantity3(quantity3 + 1)}
+                  onClick={() => setQuantity3(Math.min(props.train.seats.thirdClass.availableSeats, quantity3 + 1))}
                 >
                   +
                 </Button>
@@ -137,7 +221,11 @@ const TicketForm = ({ handlePayment }) => {
           variant="primary"
           size="lg"
           block
-          onClick={handlePayment}
+          onClick={() => {
+            navigate("/card-payment", {
+              state: { ticketData, ticketPrice: totalPrice, bookingData: props.bookingData, train: props.train },
+            });
+          }}
           className="elegant-pay-btn mt-4"
         >
           Pay
