@@ -4,7 +4,7 @@ import server.train;
 import server.admin;
 import ballerina/io;
 
-configurable int port = 8080;
+configurable int port = ?;
 
 listener http:Listener httpListener = new(port);
 
