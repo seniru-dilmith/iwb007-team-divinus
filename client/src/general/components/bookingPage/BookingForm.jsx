@@ -5,6 +5,7 @@ import { faCalendarAlt, faTrain, faSearch } from '@fortawesome/free-solid-svg-ic
 import { useNavigate } from 'react-router-dom';
 import '../../css/bookingPage/booking-form.css';
 import axios from '../../../api/axios';
+import useWaiter from '../../../hooks/useWaiter';
 
 const BookingForm = () => {
   const [locations, setLocations] = useState([]);
@@ -13,9 +14,12 @@ const BookingForm = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { addWaiter, removeWaiter } = useWaiter();
 
   // Fetch dummy locations data (useEffect runs when the component mounts)
   useEffect(() => {
+    if (!axios) return;
+    addWaiter('Fetching locations in booking form...');
 
     axios.get('/train/stations')
       .then((res) => {
@@ -23,6 +27,9 @@ const BookingForm = () => {
       })
       .catch((err) => {
         console.error('Error fetching locations:', err);
+      })
+      .finally(() => {
+        removeWaiter('Fetching locations in booking form...');
       });
 
   }, []);
@@ -37,6 +44,8 @@ const BookingForm = () => {
     };
 
     console.log(bookingData);
+
+    addWaiter('Searching for trains...');
     
     // need to check this
     axios.post('/train/search', bookingData)
@@ -46,6 +55,9 @@ const BookingForm = () => {
       })
       .catch((err) => {
         console.error('Error fetching trains:', err);
+      })
+      .finally(() => {
+        removeWaiter('Searching for trains...');
       });
   };
 

@@ -6,57 +6,59 @@ import Navbar from "../components/common/navbar";
 import Footer from "../components/common/Footer";
 import KeyValueSet from "../components/validatePage/KeyValueSet";
 import "../css/validatePage/validate-page.css";
-import axios from "axios";
+import axios from "../../api/axios";
+import useWaiter from "../../hooks/useWaiter";
 
 const ValidatePage = () => {
   const [ticketNumber, setTicketNumber] = useState("");
   const [isValidTicket, setIsValidTicket] = useState(null);
-  const [ticketData, setTicketData] = useState(null); 
+  const [ticketData, setTicketData] = useState(null);
+  const {addWaiter, removeWaiter} = useWaiter();
 
   const handleValidation = async (e) => {
     e.preventDefault();
+    addWaiter("Validating ticket...");
 
-    try {
-      // Simulate ticket validation
-      const validTicketNumbers = ["12345", "67890"];
-      const dummyData = {
-        token: "sample token name",
-        name: "Thumul Dasun",
-        nic: "121212121212",
-        date: "2025-02-14",
-        departureStation: "Badulla",
-        arrivalStation: "Kandy",
-        seatsQuantity: {
-          firstClass: 3,
-          secondClass: 2,
-          thirdClass: 1,
-        },
-      };
-
-      if (validTicketNumbers.includes(ticketNumber)) {
+    axios.post('ticket/',{token:ticketNumber})
+      .then((response) => {
         setIsValidTicket(true);
-        setTicketData(dummyData);
-      } else {
-        setIsValidTicket(false);
-        setTicketData(null);
-      }
+        const train = response.data.train;
+        const ticket = response.data.ticket;
 
-      /*
-      const response = await axios.post('https://api.example.com/validate-ticket', {
-        ticketNumber: ticketNumber,
+        console.log(train, ticket);
+
+        if(!train || !ticket) {
+          alert('Invalid Ticket Number or expired ticket');
+          return;
+        }
+        setTicketData({
+          token: ticket.token,
+          name: ticket.details.name,
+          nic: ticket.details.nic,
+          date: train.startDate,
+          departureStation: ticket.details.startStation,
+          arrivalStation: ticket.details.endStation,
+          seatsQuantity: {
+            firstClass: ticket.details.seatsQuantity.firstClass,
+            secondClass: ticket.details.seatsQuantity.secondClass,
+            thirdClass: ticket.details.seatsQuantity.thirdClass,
+          },
+        });
+
+        if(ticket.status !== 'active') {
+          setIsValidTicket(false);
+        }else{
+          setIsValidTicket(true);
+        }
+      })
+      .catch((error) => {
+        alert('Invalid Ticket Number or expired ticket');
+        console.error(error);
+      })
+      .finally(() => {
+        removeWaiter("Validating ticket...");
       });
 
-      if (response.data.isValid) {
-        setIsValidTicket(true);
-        setTicketData(response.data.ticketDetails);
-      } else {
-        setIsValidTicket(false);
-      }
-      */
-    } catch (error) {
-      console.error("Error validating the ticket:", error);
-      setIsValidTicket(false);
-    }
   };
 
   return (

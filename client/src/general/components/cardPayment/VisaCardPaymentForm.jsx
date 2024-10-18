@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Modal, Button, Row, Col } from "react-bootstrap";
 import "../../css/CardPaymentPage/VisaCardPaymentForm.css"; // Import custom CSS if needed for additional styles
 import axios from "../../../api/axios";
+import useWaiter from "../../../hooks/useWaiter";
 
 const KeyValueSet = (props) => {
   return(
@@ -28,6 +29,8 @@ function VisaCardPaymentForm() {
 
   const [showModal, setShowModal] = useState(false);
   const [tokenStr, setTokenStr] = useState("");
+
+  const { addWaiter, removeWaiter } = useWaiter();
 
   const handleClose = () => {
     setShowModal(false);
@@ -62,6 +65,8 @@ function VisaCardPaymentForm() {
 
     console.log(ticketData);
 
+    addWaiter("Reserving the ticket...");
+
     axios
       .post("/ticket/bookTicket", ticketData)
       .then((res) => {
@@ -71,6 +76,9 @@ function VisaCardPaymentForm() {
       })
       .catch((error) => {
         console.error("Error reserving the ticket", error);
+      })
+      .finally(() => {
+        removeWaiter("Reserving the ticket...");
       });
   };
 
