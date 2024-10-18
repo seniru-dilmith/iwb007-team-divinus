@@ -19,7 +19,6 @@ const AdminLoginForm = () => {
     axiosWithCredential.post('/admin/login', { email, password })
       .then((res) => {
         setAccessToken(res.data.access_token);
-        console.log(res.data);
         setIsAuthenticated(true);
       })
       .catch((err) => {

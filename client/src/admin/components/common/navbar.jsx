@@ -1,14 +1,28 @@
 import React from 'react';
 import logo from '../../assets/common/train-logo-low-res.png';
 import '../../css/common/navbar.css';
-import { useNavigate } from 'react-router-dom';
+import useWaiter from '../../../hooks/useWaiter';
+import useAuth from '../../../hooks/useAuth';
+import { axiosWithCredential } from '../../../api/axios';
 
 const Navbar = () => {
-
-  const navigate = useNavigate();
+  const { addWaiter, removeWaiter } = useWaiter();
+  const { setIsAuthenticated, setAccessToken } = useAuth();
 
   const handleLogout = () => {
-    navigate('/admin');
+    addWaiter("Logging out...");
+
+    axiosWithCredential.post('/admin/logout')
+      .then((response) => {
+        setIsAuthenticated(false);
+        setAccessToken(null);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        removeWaiter("Logging out...");
+      });
   };
 
   return (
