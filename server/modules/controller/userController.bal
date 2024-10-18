@@ -2,7 +2,6 @@ import ballerina/http;
 import server.model;
 import ballerina/crypto;
 import ballerina/jwt;
-// import ballerina/io;
 
 configurable string access_token_secret = ? ;
 configurable string refresh_token_secret = ?;
@@ -46,6 +45,11 @@ function encryptPassword(string password) returns string {
     return hashedPassword;
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + user - user to login
+# + return - returns an error if there is an error in the model
 public function userLogin(http:Caller caller, model:User user) returns error? {
 
     http:Response res = new;
@@ -68,7 +72,7 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
 
     string access_token = check generateJWT({"email": dbUser.email}, access_token_secret, 600);
     string refresh_token = check generateJWT({"email": dbUser.email}, refresh_token_secret, 3600);
-    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, secure = true, maxAge = 3600);
+    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, maxAge = 3600);
 
     res.statusCode = 200;
     res.addCookie(tokenCookie);
@@ -79,6 +83,11 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + user - user to register
+# + return - returns an error if there is an error in the model
 public function userRegister(http:Caller caller, model:User user) returns error? {
 
     if(!(user.name is string)){
@@ -112,6 +121,11 @@ public function userRegister(http:Caller caller, model:User user) returns error?
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
 public function refreshToken(http:Caller caller, http:Request req) returns error? {
     http:Cookie[] cookies = req.getCookies();
 
@@ -139,7 +153,7 @@ public function refreshToken(http:Caller caller, http:Request req) returns error
     string refresh_token = check generateJWT({"email": email}, refresh_token_secret, 3600);
 
     http:Response res = new;
-    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, secure = true, maxAge = 3600);
+    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, maxAge = 3600);
     res.statusCode = 200;
     res.addCookie(tokenCookie);
     res.setJsonPayload({"message": "Token refreshed", "access_token" : access_token });
@@ -147,6 +161,11 @@ public function refreshToken(http:Caller caller, http:Request req) returns error
     return ();
 }
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
 public function userLogout(http:Caller caller, http:Request req) returns error? {
     http:Cookie[] cookies = req.getCookies();
 
@@ -175,6 +194,11 @@ public function userLogout(http:Caller caller, http:Request req) returns error? 
 }
 
 
+# Description.
+#
+# + caller - Caller object to respond back to the client
+# + req - request object
+# + return - returns an error if there is an error in the model
 public function authorizeToken(http:Caller caller, http:Request req) returns error? {
     string auth = check req.getHeader("Authorization");
 

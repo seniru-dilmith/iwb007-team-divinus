@@ -1,70 +1,91 @@
-# Getting Started with Create React App
+# Initialize the React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Prerequisites  
+Before running the app, ensure you have **Node.js** installed. Create your own `.env` file by following the provided [`.env.example`](./.env.example) template.  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Available Scripts  
 
-### `npm start`
+In the project directory, you can run:  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### `npm start`  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. If you need you can change the default port to run the react server by modifying [package.json](./package.json) with,
 
-### `npm test`
+```bash
+"scripts": {
+  "start": "PORT=3001 react-scripts start",
+  ...
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The page will reload automatically if you make changes.  
+You may also see lint errors in the console.
 
-### `npm run build`
+### `npm test`  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Launches the test runner in interactive watch mode.  
+See the [running tests](https://facebook.github.io/create-react-app/docs/running-tests) section for more information.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run build`  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder.  
+The build is minified, optimized, and ready for deployment.  
 
-### `npm run eject`
+See the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) for more details.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `npm run eject`  
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Note:** This is a one-way operation. Once you `eject`, you cannot revert back.  
+This command copies all configuration files and dependencies into your project, giving you complete control over the build setup.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+```bash
+client/
+├── node_modules/          # Project dependencies
+├── public/                # Static files for the React app
+├── src/                   # Source code for the React components
+├── .env                   # Environment variables
+├── .env.example           # Example environment variables file
+├── .gitignore             # Git ignore rules
+├── package-lock.json      # Locks dependencies to specific versions
+├── package.json           # Project metadata and dependencies
+└── README.md              # Documentation for the frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Create an Environment File  
 
-### Code Splitting
+1. Locate the `.env.example` file in the project directory.
+2. Create a new `.env` file:
+   ```bash
+   cp .env.example .env
+   ```
+3. Update the environment variables in the `.env` file according to your configuration needs.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Learn More  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started)  
+- [React Documentation](https://reactjs.org/)
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Additional Topics  
 
-### Advanced Configuration
+- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting)  
+- [Analyzing Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)  
+- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)  
+- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+### Troubleshooting  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If `npm run build` fails to minify, see the troubleshooting guide:  
+[https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)  

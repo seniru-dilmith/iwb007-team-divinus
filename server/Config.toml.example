@@ -1,0 +1,6 @@
+[server.database]
+connectionString = <Your MongoDB Connection String>
+
+[server.controller]
+access_token_secret = <Your Access Token Secret goes here>
+refresh_token_secret = <Your Refresh Token Secret goes here>

@@ -4,6 +4,7 @@ import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import SeatSelector from './SeatSelector';
 import AddButton from './AddButton';
 import useAxios from '../../../hooks/useAxios';
+import useWaiter from '../../../hooks/useWaiter';
 
 const TrainForm = () => {
   const [seats, setSeats] = useState({
@@ -17,12 +18,15 @@ const TrainForm = () => {
   const [stations, setStations] = useState([]);
   const [selectedStations, setSelectedStations] = useState([{ station: '', time: '' }]);
   const [dropdownOpen, setDropdownOpen] = useState(Array(selectedStations.length).fill(false));
+  const [date, setDate] = useState('');
+  const { addWaiter, removeWaiter } = useWaiter();
 
   const axios = useAxios();
 
   // Fetch stations data (using dummy data for now)
   useEffect(() => {
     if(!axios) return;
+    addWaiter('Fetching stations in train form...');
 
     axios.get('/train/stations')
       .then((response) => {
@@ -30,6 +34,9 @@ const TrainForm = () => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        removeWaiter('Fetching stations in train form...');
       });
   }, [axios]);
 
@@ -96,30 +103,42 @@ const TrainForm = () => {
 
     const trainData = {
       name: trainName,
-      stations: selectedStations.filter((entry) => entry.station !== ''),
-      routined,
+      destinations: selectedStations.filter((entry) => entry.station !== ''),
+      isDaily : routined,
+      startDate : date,
       seats: {
-        firstClass: seats.firstClass,
-        secondClass: seats.secondClass,
-        thirdClass: seats.thirdClass,
-      },
-    };
+        firstClass: {
+          totalSeats: seats.firstClass,
+          availableSeats: seats.firstClass
+        },
+        secondClass: {
+          totalSeats: seats.secondClass,
+          availableSeats: seats.secondClass
+        },
+        thirdClass: {
+          totalSeats: seats.thirdClass,
+          availableSeats: seats.thirdClass
+        }
+      }
+    }
+
+    if(!axios) return;
+    addWaiter('Adding new train...');
+
+    axios.post('/train/schedule', trainData)
+      .then((response) => {
+        console.log(response);
+        alert('Train added successfully!');
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Failed to add train!');
+      })
+      .finally(() => {
+        removeWaiter('Adding new train...');
+      });
 
     console.log('Train details submitted:', trainData);
-
-    // Uncomment the following block to send a POST request with axios
-    /*
-    try {
-      const response = await axios.post('https://your-api.com/train/add', trainData);
-      if (response.status === 200) {
-        console.log('Train added successfully:', response.data);
-      } else {
-        console.error('Failed to add train:', response);
-      }
-    } catch (error) {
-      console.error('Error adding train:', error);
-    }
-    */
   };
 
   return (
@@ -129,7 +148,7 @@ const TrainForm = () => {
 
       {/* Train Name */}
       <Row className="mb-3">
-        <Col xs={12}>
+        <Col xs={8}>
           <Form.Group controlId="trainName">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -137,6 +156,20 @@ const TrainForm = () => {
               placeholder="Name of Train"
               value={trainName}
               onChange={(e) => setTrainName(e.target.value)}
+              style={{ height: '3rem' }}
+              required
+            />
+          </Form.Group>
+        </Col>
+        {/* Train Date */}
+        <Col xs={4}>
+          <Form.Group controlId="date">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              style={{ height: '3rem' }}
               required
             />
           </Form.Group>
