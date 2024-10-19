@@ -10,13 +10,10 @@ const ContactUs = () => {
   return (
     <div className="contact-us-page">
       <div className="container mt-5 mb-5">
-        <h2 className="text-center mb-4 text-white" style={{ marginTop: '100px', fontWeight: 'bold' }}>Contact Us</h2>
+        <h2 className="text-center mb-4 mt-2 text-white" style={{ fontWeight: 'bold' }}>Contact Us</h2>
         <div className="row">
-          <div className="col-md-6 mb-4">
+          <div className="col-12 mb-2">
             <ContactInfo />
-          </div>
-          <div className="col-md-6 mb-4">
-            <ContactForm />
           </div>
         </div>
         <Map />
