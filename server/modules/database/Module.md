@@ -16,9 +16,8 @@ server
 │   ├── controller   
 │   ├── database
 │   │   └── mongodb.bal  # MongoDB connection handler
-│   ├── model            # Data models (User, Train, Ticket, etc.)
-│   └── time             # Time utilities for schedules and operations
-```
+│   ├── model            
+│   └── time            
 
 ---
 

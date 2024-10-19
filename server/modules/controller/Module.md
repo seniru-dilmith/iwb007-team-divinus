@@ -18,10 +18,10 @@ server
 │       ├── trainController.bal   # Manages train schedules
 │       └── userController.bal    # Manages user authentication and sessions
 │
-├── database                      # Handles storage and queries
-├── model                         # Data models (User, Train, Ticket, etc.)
-├── ticket                        # Ticket services and utilities
-└── time                          # Utilities for time and date management
+├── database                      
+├── model                        
+├── ticket                      
+└── time                       
 ```
 
 ---

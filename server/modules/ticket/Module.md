@@ -14,8 +14,8 @@ server
 │   ├── controller 
 │   ├── database 
 │   ├── model
-│   ├── ticket                // Ticket management service and logic
-│       └── ticket.bal        // Ticket-related service implementation
+│   ├── ticket                # Ticket management service and logic
+│       └── ticket.bal        # Ticket-related service implementation
 │   ├── time                 
 │   └── train       
 └── target                   

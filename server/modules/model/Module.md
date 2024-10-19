@@ -17,9 +17,9 @@ server
 │   |── admin
 │   ├── controller
 │   ├── model  
-|         |──ticketModel.bal 
-|         |──trainModel.bal 
-|         |──userModel.bal                   
+|         |──ticketModel.bal            # proccesses related to ticket management in database
+|         |──trainModel.bal             # proccesses related to train management in database
+|         |──userModel.bal              # proccesses related to user management in database    
 |   |──time                              
 ```
 
