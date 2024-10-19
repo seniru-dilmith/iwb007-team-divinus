@@ -17,12 +17,12 @@ server
 ├── modules
 │   ├── admin                    # Handles admin-specific logic
 │       ├── admin.bal            # Admin HTTP service logic
-│   ├── controller               # Business logic handlers
-│   ├── database                 # MongoDB connection logic
-│   ├── model                    # Data models (e.g., User, Train, Ticket)
-│   ├── ticket                   # Ticket management logic
-│   ├── time                     # Time utility functions
-│   └── train                    # Train service logic
+│   ├── controller              
+│   ├── database                 
+│   ├── model                    
+│   ├── ticket                
+│   ├── time                    
+│   └── train                  
 ```
 
 ---  
