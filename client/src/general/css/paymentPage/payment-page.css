@@ -13,6 +13,7 @@
   url('../../assets/payment-page/back-image.jpg');
   background-size: cover;
   background-position: center;
+  padding-top: 10px;
 }
 
 /* Form Container */

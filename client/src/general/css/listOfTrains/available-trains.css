@@ -3,6 +3,7 @@
   padding: 0 5%;
   background-color: #f9f9f9;
   border-radius: 10px;
+  min-height: 90vh;
   margin: 0 auto; /* Ensure it's centered */
 }
 
