@@ -3,13 +3,12 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import LoginForm from '../../components/login/LoginForm';
 import '../../css/login/login-page.css';
 import logo from '../../assets/common/train-logo-low-res.png'
-import Navbar from '../../components/common/navbar';
+import Navbar from '../../components/common/NavbarAdmin';
 import Footer from '../../components/common/Footer';
 
 const LoginPage = () => {
   return (
     <div className="admin-login-page">
-        <Navbar />
         <Container fluid>
             <Row className="justify-content-center align-items-center min-vh-100">
             <Col md={6} lg={4}>
@@ -26,7 +25,6 @@ const LoginPage = () => {
             </Col>
             </Row>
         </Container>
-        <Footer />
     </div>
   );
 };

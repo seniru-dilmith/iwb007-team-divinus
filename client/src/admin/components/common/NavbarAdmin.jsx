@@ -5,7 +5,7 @@ import useWaiter from '../../../hooks/useWaiter';
 import useAuth from '../../../hooks/useAuth';
 import { axiosWithCredential } from '../../../api/axios';
 
-const Navbar = () => {
+const NavbarAdmin = () => {
   const { addWaiter, removeWaiter } = useWaiter();
   const { setIsAuthenticated, setAccessToken } = useAuth();
 
@@ -39,4 +39,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarAdmin;

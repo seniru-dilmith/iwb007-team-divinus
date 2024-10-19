@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import TrainCard from "../../components/schedule/TrainCard";
 import SearchBar from "../../components/schedule/SearchBar";
 import ScheduleHeader from "../../components/schedule/ScheduleHeader";
-import Navbar from "../../components/common/navbar";
-import Footer from "../../components/common/Footer";
 import EditTrainModal from "../../components/schedule/EditTrainModal";
 import StationControl from "../../components/schedule/StationControl";
 import "../../css/schedule/schedule.css";
@@ -96,7 +94,6 @@ const Schedule = () => {
 
   return (
     <div className="schedule-page">
-      <Navbar />
       <div className="container content">
         <ScheduleHeader />
         <StationControl />
@@ -124,7 +121,6 @@ const Schedule = () => {
           ))}
         </div>
       </div>
-      <Footer />
       {editingTrain && (
         <EditTrainModal
           show={showModal}
