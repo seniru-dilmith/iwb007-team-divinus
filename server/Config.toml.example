@@ -1,5 +1,9 @@
+[server]
+port = <Your Port Number>  # example 8080
+
 [server.database]
 connectionString = <Your MongoDB Connection String>
+databaseName = <Your database name>
 
 [server.controller]
 access_token_secret = <Your Access Token Secret goes here>
