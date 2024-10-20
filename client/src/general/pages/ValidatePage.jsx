@@ -1,6 +1,5 @@
 import "../css/validatePage/validate-page.css";
 import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import TicketValidationForm from "../components/validatePage/TicketValidationForm";
 import TicketValidationResult from "../components/validatePage/TicketValidationResult";
 import KeyValueSet from "../components/validatePage/KeyValueSet";

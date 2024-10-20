@@ -1,6 +1,5 @@
 import React from 'react';
 import ContactInfo from '../components/contactUs/ContactInfo';
-import ContactForm from '../components/contactUs/ContactForm';
 import Map from '../components/contactUs/Map';
 
 import 'bootstrap/dist/css/bootstrap.min.css';

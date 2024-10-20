@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Modal, Button, Row, Col } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import "../../css/CardPaymentPage/VisaCardPaymentForm.css"; // Import custom CSS if needed for additional styles
 import axios from "../../../api/axios";
 import useWaiter from "../../../hooks/useWaiter";
@@ -37,7 +37,6 @@ function VisaCardPaymentForm() {
     navigate("/");
     console.log(trainData);
   };
-  const handleShow = () => setShowModal(true);
 
   //Function to get the Arrival time of a specific station
   const arrivalTime = (station) => {
