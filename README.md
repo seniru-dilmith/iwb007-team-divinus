@@ -69,7 +69,7 @@ ii. Follow the steps in [Backend Readme section(i)](/server/README.md) to set up
 
 ---
 
-**For Your checking purposes we have hadded a sample user as an admin Use the below credentials to login:**
+**For Your checking purposes we have hadded a sample user as an admin. Use the below credentials to login:**
 
 `/admin` is the admin login route. Buttons and links are avilable from here for admin controls.
 
