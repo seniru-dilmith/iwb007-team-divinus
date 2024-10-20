@@ -29,6 +29,7 @@ const CheckoutTicketPage = () => {
     }
 
     const updateTicketData = async () => {
+      if(ticketNumber==="") return;
       addWaiter("Validating ticket...");
         axios
         .post("ticket/", { token: ticketNumber })
@@ -82,9 +83,10 @@ const CheckoutTicketPage = () => {
       };
 
       const handleCheckout = async () => {
-        if(ticketData === null || ticketData.token!==ticketNumber){
-          updateTicketData();
-        }
+        if(ticketData === null) updateTicketData();
+
+        if(ticketData.token!==ticketNumber) updateTicketData();
+
         if(ticketStatus==="active"){
           addWaiter("Checking out the ticket...");
           axiosWithToken
