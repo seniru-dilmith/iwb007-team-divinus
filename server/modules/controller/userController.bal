@@ -72,7 +72,7 @@ public function userLogin(http:Caller caller, model:User user) returns error? {
 
     string access_token = check generateJWT({"email": dbUser.email}, access_token_secret, 600);
     string refresh_token = check generateJWT({"email": dbUser.email}, refresh_token_secret, 3600);
-    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true,secure = true, maxAge = 3600);
+    http:Cookie tokenCookie = new("refresh_token", refresh_token, httpOnly = true, maxAge = 3600);
 
     res.statusCode = 200;
     res.addCookie(tokenCookie);
