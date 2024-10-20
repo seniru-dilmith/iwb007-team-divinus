@@ -2,9 +2,9 @@
 port = <Your Port Number>  # example 8080
 
 [server.database]
-connectionString = <Your MongoDB Connection String>
+connectionString = <Your MongoDB Connection String> # example_connection_string: "mongodb+srv://<db_username>:<db_password>@cluster0.t24qq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 databaseName = <Your database name>
 
 [server.controller]
-access_token_secret = <Your Access Token Secret goes here>
-refresh_token_secret = <Your Refresh Token Secret goes here>
+access_token_secret = "<Your Access Token Secret goes here>"
+refresh_token_secret = "<Your Refresh Token Secret goes here>"
