@@ -107,6 +107,11 @@ const Schedule = () => {
               Schedule a New Train
             </button>
           </Link>
+          <Link to="/admin/checkout-ticket" className="btn add-train">
+            <button className="btn btn-dark checkout-ticket">
+              Checkout Ticket
+            </button>
+          </Link>
           <SearchBar />
         </div>
         <h2 className="text-center mt-4">Scheduled Trains</h2>
