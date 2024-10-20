@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import "./App.css";
 import AuthProvider from "./context/AuthContext";
 import AppRoutes from "./routes/AppRoutes";
-import useRefreshToken from "./hooks/useRefreshToken";
 import WaitingProvider from "./context/WaitingContext";
 import { useLocation } from "react-router-dom";
 
@@ -22,7 +20,7 @@ function App() {
       <AuthProvider>
         <div className="main-container">
           {navCondition ? <NavbarAdmin /> : <Navbar /> }
-          <div className="page-container">
+          <div className={navCondition ? "" : "page-container"}>
             <AppRoutes />
           </div>
           <Footer />

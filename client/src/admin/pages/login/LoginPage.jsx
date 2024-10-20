@@ -1,10 +1,9 @@
 import React from 'react';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import LoginForm from '../../components/login/LoginForm';
 import '../../css/login/login-page.css';
 import logo from '../../assets/common/train-logo-low-res.png'
-import Navbar from '../../components/common/NavbarAdmin';
-import Footer from '../../components/common/Footer';
+
 
 const LoginPage = () => {
   return (

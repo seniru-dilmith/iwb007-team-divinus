@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -17,6 +16,7 @@ import CardPaymentPage from "../general/pages/CardPaymentPage";
 import LoginPage from "../admin/pages/login/LoginPage";
 import AddTrain from "../admin/pages/addTrain/AddTrain";
 import Schedule from "../admin/pages/schedule/Schedule";
+import CheckoutTicketPage from "../admin/pages/checkoutTicket/CheckoutTicketPage";
 import useAuth from "../hooks/useAuth";
 import useRefreshToken from "../hooks/useRefreshToken";
 
@@ -64,6 +64,12 @@ function AppRoutes() {
         element={isAuthenticated ? <AddTrain /> : <Navigate to={"/admin"} />}
       />{" "}
       {/* Add a new train */}
+
+      <Route
+        path="/admin/checkout-ticket"
+        element={isAuthenticated ? <CheckoutTicketPage /> : <Navigate to={"/admin"} />}
+      />{" "}
+      {/* Checkout train ticket */}
       {/* Not found page */}
       <Route path="*" element={<NotFound />} /> {/* 404 Route */}
     </Routes>

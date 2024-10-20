@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import TrainCard from '../components/listOfTrains/TrainCard';
@@ -15,11 +15,6 @@ const ListOfAvailableTrains = () => {
   const location = useLocation();
   const bookingData = location.state?.bookingData || {};
   const trainData = location.state?.trains || {};
-
-  useEffect(() => {
-    console.log(trainData);
-    console.log(bookingData);
-  },[trainData]);
 
   return (
       <Container className="available-trains-container">

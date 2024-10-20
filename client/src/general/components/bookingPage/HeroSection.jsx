@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <div
       className="hero-section d-flex align-items-center"
-      style={{ backgroundImage: `url(${trainImage})` , backgroundSize: 'cover', backgroundSize: 'cover' }}
+      style={{ backgroundImage: `url(${trainImage})` , backgroundSize: 'cover' }}
     >
       <div className="container text-center">
         <BookingForm />
