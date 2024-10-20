@@ -1,0 +1,178 @@
+/* Payment Page Container */
+.payment-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.95) 30%,
+    rgba(255, 255, 255, 0.8)
+  ), 
+  url('../../assets/payment-page/back-image.jpg');
+  background-size: cover;
+  background-position: center;
+  padding-top: 10px;
+}
+
+/* Form Container */
+.form-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Ticket Form Container */
+.ticket-form-container {
+  width: 100%;
+  max-width: 700px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+}
+
+/* Align ticket selection items */
+.ticket-selection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.ticket-selection h5 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #343a40;
+}
+
+/* Quantity display adjustments */
+.quantity-display {
+  font-size: 24px;
+  padding: 0 20px;
+  min-width: 50px;
+  text-align: center;
+  display: inline-block;
+  font-weight: bold;
+  color: #343a40;
+}
+
+/* Pay Button */
+.pay-btn {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  font-size: 18px;
+  padding: 15px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.pay-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Total Price Styling */
+h4 {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #28a745;
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+/* Train Details Container */
+.train-details-container {
+  margin-bottom: 30px;
+}
+
+/* Footer Styling */
+.footer {
+  position: absolute;
+  margin-bottom: 0;
+  width: 100%;
+  background-color: #343a40;
+  color: white;
+  padding: 25px 0;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  font-size: 0.9rem;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablets and below */
+@media (max-width: 768px) {
+  .form-container,
+  .ticket-form-container {
+    max-width: 85%;
+    padding: 30px;
+  }
+
+  .pay-btn {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .ticket-selection h5 {
+    font-size: 18px;
+  }
+
+  .quantity-display {
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 1.3rem;
+    padding: 12px;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 576px) {
+  .form-container,
+  .ticket-form-container {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+
+  .ticket-selection {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pay-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .quantity-display {
+    font-size: 18px;
+  }
+
+  .ticket-selection h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .footer{
+
+    font-size: 0.8rem;
+  }
+}

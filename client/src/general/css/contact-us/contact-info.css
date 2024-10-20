@@ -1,0 +1,30 @@
+.data-wrapper {
+    margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr, 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "email email" "phone phone" "address address" "phrase phrase";
+}
+
+@media (min-width: 992px) {
+  .data-wrapper {
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "email phone" "address address" "phrase phrase";
+  }
+}
+
+#email-p {
+  grid-area: email;
+}
+
+#phone-p {
+  grid-area: phone;
+}
+
+#address-p {
+  grid-area: address;
+}
+
+#phrase-p {
+  grid-area: phrase;
+}

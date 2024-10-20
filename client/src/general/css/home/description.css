@@ -1,0 +1,25 @@
+.description-section {
+    margin: auto; /* Center the section */
+    padding: 1%;
+    border-radius: 20px; /* Rounded corners */
+    text-align: center;
+    width: 100%; /* Adjust based on how wide you want it */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+.description-title {
+    padding-top: 2%;
+    font-size: 2.5rem; /* Size for title */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+.description-text {
+    padding: 0.1% 5%;
+    font-size: 1.2rem; /* Size for the paragraph text */
+    color: #555;
+    line-height: 1.6;
+    margin-top: 20px;
+}

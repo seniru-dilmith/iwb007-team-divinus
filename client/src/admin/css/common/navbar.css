@@ -1,0 +1,100 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-left: 10px; /* Adjust margin for better alignment */
+}
+
+.navbar-brand img {
+    max-height: 40px;
+    margin-right: 10px;
+}
+
+.admin-center {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    color: #333;
+    letter-spacing: 0.2rem;
+    border-radius: 50px;
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    padding: 6px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Allow the admin container to take all remaining space */
+    margin-left: 20px; /* Provide some space between the logo and admin */
+}
+
+.navbar-divider {
+    height: 40px;
+    border-left: 1px solid #ddd;
+    margin: 0 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .admin-center {
+        font-size: 1.4rem;
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .admin-center {
+        font-size: 1.2rem;
+        padding: 6px 20px;
+        width: auto;
+        flex-grow: unset; /* Remove flex-grow for smaller screens */
+        margin: 0 auto; /* Center the admin rectangle */
+    }
+
+    .navbar-divider {
+        display: none;
+    }
+
+    .navbar-brand {
+        margin-left: 0; /* Align better on mobile screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-center {
+        font-size: 1.1rem;
+        padding: 5px 15px;
+        margin: 0 auto; /* Ensure it stays centered */
+    }
+
+    .navbar-brand img {
+        max-height: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-center {
+        font-size: 1rem;
+        padding: 4px 10px;
+        width: 100%;
+        margin: 0 auto; /* Fully centered on smallest screens */
+    }
+
+    .navbar-brand img {
+        max-height: 25px;
+    }
+}

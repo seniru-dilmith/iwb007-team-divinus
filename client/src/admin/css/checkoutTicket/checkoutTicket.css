@@ -1,0 +1,85 @@
+/* Container for the validation page */
+.checkout-page-container {
+    min-height: 90vh;
+    padding: 5%;
+    margin: 0;
+    background-color: #d8d8d9;
+    display: grid;
+    width: 100vw;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    overflow-x: hidden;
+}
+
+.one-cell{
+    grid-template-columns: min(600px, 90%);
+}
+
+.two-cell{
+    grid-template-columns: repeat(2, min(600px, 90%));
+}
+
+/* Ticket Form Column */
+.ticket-form-col {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 28px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: min(500px, 90%);
+    margin: 0; 
+}
+
+/* Ticket Details Column */
+.ticket-details-col {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    min-height: 100%; 
+}
+
+/* Title styling */
+.validate-title {
+    font-size: 2.5rem;
+    letter-spacing: 0.15rem;
+    font-weight: bold;
+}
+
+.validate-btn{
+    width: 44%;
+    margin: 0 3%;
+}
+
+.checkout-btn{
+    width:44%;
+    margin: 0 3%;
+    background-color: orangered;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .ticket-form-col, .ticket-details-col {
+        width: min(500px, 90%); 
+        margin: 10px 0;
+    }
+
+    .validate-page-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .two-cell{
+        grid-template-columns: min(600px, 90%);
+    }
+
+
+}
+
+@media (max-width: 768px) {
+    .validate-title {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,117 @@
+.train-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.train-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.train-details h5 {
+    min-width: 200px;
+    max-width: 200px;
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.train-details p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.icon-eye {
+    font-size: 2rem;
+    color: #000;
+}
+
+.train-seats {
+    display: flex;
+    min-width: 250px;
+    gap: 10px;
+}
+
+.seat-class {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.class-number {
+    background-color: #f4b04f;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.seat-count {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #333;
+}
+
+.train-time {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.arrives-departs p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.arrives-departs span {
+    display: block;
+    font-size: 0.85rem;
+    color: #888;
+    text-align: center;
+}
+
+.clock-icon {
+    font-size: 2rem;
+    color: #007bff;
+}
+
+.train-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #f4b04f;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #457bdb;
+    color: white;
+}

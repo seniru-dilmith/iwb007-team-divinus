@@ -1,0 +1,53 @@
+.not-found-page {
+  background-image: url('../../assets/home/back-image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Black overlay for the background */
+.not-found-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+  z-index: 1; /* Ensure overlay is behind the content */
+  pointer-events: none; /* Make sure this overlay does not block interactions */
+}
+
+.container {
+  z-index: 2; /* Bring the content in front of the overlay */
+  position: relative;
+}
+
+.display-1 {
+  font-size: 8rem;
+  font-weight: bold;
+}
+
+.lead {
+  font-size: 1.5rem;
+}
+
+.home-button {
+  background-color: #007bff;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #0056b3;
+}
+
+.text-white {
+  color: #fff;
+}

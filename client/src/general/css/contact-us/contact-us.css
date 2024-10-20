@@ -1,0 +1,24 @@
+/* Background with a train image and a linear gradient overlay */
+.contact-us-page {
+background: linear-gradient(to top, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1)), url('../../assets/home/back-image.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* Ensures the container content stays above the background */
+.container {
+z-index: 2;
+position: relative;
+}
+
+h2.text-center {
+color: white;
+}
+
+/* Adjust the styling for better readability */
+.contact-us-page .text-white {
+color: #fff;
+}
