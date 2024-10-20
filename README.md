@@ -42,8 +42,8 @@ By default, the **main** branch will be cloned.
 
 We have created a sample database for you. You need to add it to your own mongoDB cluster. You can find the sample databse at `/server/database_dump` directory.
 
-1. **Set Up tour own mongoDB cluster**
-2. **Run the below command to initialize your own database and collections**
+i. **Set Up tour own mongoDB cluster**
+ii. **Run the below command to initialize your own database and collections**
 
 ```bash
 mongorestore --uri="<Your Connection String>/<Your databse name>" --nsInclude="<Your database name>.*" "databse dump location"
@@ -53,21 +53,28 @@ mongorestore --uri="mongodb+srv://<database_user>:<database_password>@<cluster n
 
 ### 2. Frontend Setup
 
-1. Navigate to the client folder:
+i. Navigate to the client folder:
    ```bash
    cd client
    ```
-2. Follow the steps in [Frontend Readme section(i)](/client/README.md) to set up the frontend.
+ii. Follow the steps in [Frontend Readme section(i)](/client/README.md) to set up the frontend.
 
 ### 3. Backend Setup
 
-1. Navigate to the server folder:
+i. Navigate to the server folder:
    ```bash
    cd server
    ```
-2. Follow the steps in [Backend Readme section(i)](/server/README.md) to set up the backend.
+ii. Follow the steps in [Backend Readme section(i)](/server/README.md) to set up the backend.
 
-** For Your checking purposes we have 
+---
+
+**For Your checking purposes we have hadded a sample user as an admin Use the below credentials to login:**
+
+```bash
+username: test4@gmail.com
+password: testtest4
+```
 
 ---
 
