@@ -22,7 +22,7 @@ function App() {
       <AuthProvider>
         <div className="main-container">
           {navCondition ? <NavbarAdmin /> : <Navbar /> }
-          <div className="page-container">
+          <div className={navCondition ? "" : "page-container"}>
             <AppRoutes />
           </div>
           <Footer />
