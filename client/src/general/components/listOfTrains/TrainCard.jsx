@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Row, Col, Modal, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import TrainImage from "../../assets/common/train-logo-low-res.png";
 
 const TrainCard = ({ train, bookingData }) => {
   const navigate = useNavigate();
@@ -39,28 +40,29 @@ const TrainCard = ({ train, bookingData }) => {
       <Card className="train-card shadow-sm mb-3">
         <Row className="align-items-center">
           {/* Train Logo */}
-          <Col xs={12} md={2} className="text-center">
+          <Col xs={12} sm={2} md={2} className="text-center">
             <img
-              src="/path-to-train-logo.png"
+              src={TrainImage}
+              height={60}
               alt="Train Logo"
               className="train-logo"
             />
           </Col>
 
           {/* Train Info */}
-          <Col xs={12} md={4}>
+          <Col xs={12} sm={6} md={3}>
             <div className="train-info">
               <h5 className="train-name">{train.name}</h5>
             </div>
             <div className="train-seats">
-              <Button variant="warning" className="seat-btn mx-1">1 ({train.seats.firstClass.availableSeats})</Button>
-              <Button variant="warning" className="seat-btn mx-1">2 ({train.seats.secondClass.availableSeats})</Button>
-              <Button variant="warning" className="seat-btn mx-1">3 ({train.seats.thirdClass.availableSeats})</Button>
+              <Button variant="warning" className="seat-btn mx-lg-0 mx-xl-1">1 ({train.seats.firstClass.availableSeats})</Button>
+              <Button variant="warning" className="seat-btn mx-lg-0 mx-xl-1">2 ({train.seats.secondClass.availableSeats})</Button>
+              <Button variant="warning" className="seat-btn mx-lg-0 mx-xl-1">3 ({train.seats.thirdClass.availableSeats})</Button>
             </div>
           </Col>
 
           {/* Arrival and Departure Time */}
-          <Col xs={12} md={3} className="text-center">
+          <Col xs={12} sm={4} md={3} className="text-center">
             <div className="train-time">
               <h6>Departure: {arrivalTime(bookingData.departureStation)}</h6>
               <h6>Arrival: {arrivalTime(bookingData.arrivalStation)}</h6>
@@ -69,17 +71,19 @@ const TrainCard = ({ train, bookingData }) => {
           </Col>
 
           {/* Action Buttons */}
-          <Col xs={12} md={3} className="text-center">
+          <Col xs={12} sm={6} md={2} className="text-center">
             <Button
               variant="warning"
-              className="more-btn py-2 px-3 m-2"
+              className="more-btn py-2 px-3 mx-auto mt-1"
               onClick={handleMoreInfo}  // Attach the event handler for "More Info"
             >
               More Info
             </Button>
+          </Col>
+          <Col xs={12} sm={6} md={2} className="text-center">
             <Button
               variant="primary"
-              className="book-btn py-2 px-3 m-2"
+              className="book-btn py-2 px-3 mx-auto mt-1"
               onClick={handleBookNow}  // Attach the event handler for "Book Now"
             >
               Book Now

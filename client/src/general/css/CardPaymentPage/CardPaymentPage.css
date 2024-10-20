@@ -1,4 +1,7 @@
 .card-form-container{
     display: flex;
-    margin: 5vh;
+    min-height: 90vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

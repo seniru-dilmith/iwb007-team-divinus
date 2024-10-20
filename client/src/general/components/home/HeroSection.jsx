@@ -1,5 +1,4 @@
 import React from 'react';
-import trainImage from '../../assets/home/back-image.jpg'; 
 import bookIcon from '../../assets/home/tickets.png';
 import validateIcon from '../../assets/home/valid.png'; 
 import galleryIcon from '../../assets/home/gallery.png';
@@ -7,10 +6,12 @@ import '../../css/home/home.css';
 
 const HeroSection = () => {
   return (
-    <div className="hero-section text-center" style={{ backgroundImage: `url(${trainImage})`, backgroundSize: 'cover', padding: '1%', color: '#fff', fontFamily: 'Roboto, sans-serif' }} >
+    <div className="hero-section text-center" id="hero-div" style={{ backgroundSize: 'cover', padding: '0', color: '#fff', fontFamily: 'Roboto, sans-serif' }} >
       <div className="container">
-        <h1 className="display-1">Book My Train</h1>
-        <p className="sub-topic lead fs-3 p-5">Faster & Safer</p>
+        <div className='title-container'>
+        <h1 className="main-topic">Book My Train</h1>
+        <p className="sub-topic lead fs-3">Faster & Safer</p>
+        </div>
         <div className="row justify-content-center">
           {/* Book Now */}
           <div className="col-md-4">
