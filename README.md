@@ -18,7 +18,7 @@ Make sure you have the following tools installed:
 
 ---
 
-## Getting Started
+## Getting Started with the project
 
 ### Clone the repository
 
